@@ -1,6 +1,9 @@
 package com.liwy.commons.lang;
 
 import java.io.UnsupportedEncodingException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -56,6 +59,11 @@ import java.util.regex.Pattern;
  * @version 1.0
  */
 public class StringUtils {
+	/**
+	 * The empty String {@code ""}.
+	 * @since 2.0
+	 */
+	public static final String EMPTY = "";
 	
 	private static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 	
@@ -127,6 +135,40 @@ public class StringUtils {
     public static String trim(final String str) {
         return str == null ? "" : str.trim();
     }
+
+	// Delete
+	//-----------------------------------------------------------------------
+	/**
+	 * <p>Deletes all whitespaces from a String as defined by
+	 * {@link Character#isWhitespace(char)}.</p>
+	 *
+	 * <pre>
+	 * StringUtils.deleteWhitespace(null)         = null
+	 * StringUtils.deleteWhitespace("")           = ""
+	 * StringUtils.deleteWhitespace("abc")        = "abc"
+	 * StringUtils.deleteWhitespace("   ab  c  ") = "abc"
+	 * </pre>
+	 *
+	 * @param str  the String to delete whitespace from, may be null
+	 * @return the String without whitespaces, {@code null} if null String input
+	 */
+	public static String deleteWhitespace(final String str) {
+		if (isEmpty(str)) {
+			return str;
+		}
+		final int sz = str.length();
+		final char[] chs = new char[sz];
+		int count = 0;
+		for (int i = 0; i < sz; i++) {
+			if (!Character.isWhitespace(str.charAt(i))) {
+				chs[count++] = str.charAt(i);
+			}
+		}
+		if (count == sz) {
+			return str;
+		}
+		return new String(chs, 0, count);
+	}
     
     /**
      * <p>获取字符的unicode编码</p>
@@ -282,4 +324,191 @@ public class StringUtils {
 		return sb.toString();
 	}
 
+	// ------printObject()
+
+	/**
+	 * 将对象转换为可读的字符串
+	 * 主要处理数组对象，Collection、Map的下级对象
+	 * 对于自定义对象主要是通过调用该对象重写的toString方法
+	 * @param value
+	 * @return
+	 */
+	public String toPrintString(Object value) {
+		StringBuffer sb = new StringBuffer();
+		appendInternal(sb,value);
+		return sb.toString();
+	}
+	String arrayStart="[";
+	String arraySeparator=",";
+	String arrayEnd="]";
+	String nullText="null";
+
+	/**
+	 * 转换为String的核心逻辑
+	 * @param buffer
+	 * @param value
+	 */
+	private void appendInternal(final StringBuffer buffer, final Object value) {
+		if (value == null) {
+			buffer.append(nullText);
+			return;
+
+		}
+		if (value instanceof Collection<?>) {
+			appendDetail(buffer, (Collection<?>) value);
+		} else if (value instanceof Map<?, ?>) {
+			appendDetail(buffer, (Map<?, ?>) value);
+		} else if (value instanceof long[]) {
+			appendDetail(buffer, (long[]) value);
+		} else if (value instanceof int[]) {
+			appendDetail(buffer, (int[]) value);
+		} else if (value instanceof short[]) {
+			appendDetail(buffer, (short[]) value);
+		} else if (value instanceof byte[]) {
+			appendDetail(buffer, (byte[]) value);
+		} else if (value instanceof char[]) {
+			appendDetail(buffer, (char[]) value);
+		} else if (value instanceof double[]) {
+			appendDetail(buffer, (double[]) value);
+		} else if (value instanceof float[]) {
+			appendDetail(buffer, (float[]) value);
+		} else if (value instanceof boolean[]) {
+			appendDetail(buffer, (boolean[]) value);
+		} else if (value.getClass().isArray()) {
+			appendDetail(buffer, (Object[]) value);
+		} else {
+			appendDetail(buffer, value);
+		}
+	}
+
+	private void appendDetail(final StringBuffer buffer, final Collection<?> coll) {
+		buffer.append("[");
+		Iterator<?> iter = coll.iterator();
+		int i=0;
+		while(iter.hasNext()) {
+			if (i>0){
+				buffer.append(arraySeparator);
+			}
+			appendInternal(buffer,iter.next());
+			i++;
+		}
+		buffer.append("]");
+	}
+	private void appendDetail(final StringBuffer buffer, final Map<?, ?> map) {
+		buffer.append("{");
+		Iterator<?> iter = map.entrySet().iterator();
+		int i=0;
+		while(iter.hasNext()) {
+			if (i>0){
+				buffer.append(arraySeparator);
+			}
+			Map.Entry<?, ?> map1 = (Map.Entry<?, ?>) iter.next();
+			appendInternal(buffer,map1.getKey());
+			buffer.append("=");
+			appendInternal(buffer,map1.getValue());
+			i++;
+		}
+		buffer.append("}");
+	}
+	//long[]、int[]、short[]、byte[]等类型不能直接转换为Object[],所以要特殊处理
+	private void appendDetail(final StringBuffer buffer, final long[] array) {
+
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final int[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final short[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final byte[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final char[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final double[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final float[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final boolean[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			appendDetail(buffer, array[i]);
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final Object[] array) {
+		buffer.append(arrayStart);
+		for (int i = 0; i < array.length; i++) {
+			final Object item = array[i];
+			if (i > 0) {
+				buffer.append(arraySeparator);
+			}
+			if (item == null) {
+				buffer.append(nullText);
+
+			} else {
+				appendInternal(buffer, item);
+			}
+		}
+		buffer.append(arrayEnd);
+	}
+	private void appendDetail(final StringBuffer buffer, final Object value) {
+		buffer.append(value);//如果要打印对象，请重新该对象的toPrintString方法
+	}
 }
