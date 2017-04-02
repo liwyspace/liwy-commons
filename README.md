@@ -7,7 +7,7 @@
 >
 > 扫描关注微信公众号：开源小屋
 >
-> ![开源小屋www.oscafe.net 公众平台二维码](https://github.com/liwyspace/liwy-commons/blob/master/oscafe_qrcode.jpg)
+> ![开源小屋www.oscafe.net 公众平台二维码](./oscafe_qrcode.jpg)
 ## 前言
 liwy-commons 是作者在开发实践中总结归纳的一组常用的工具类。
 ## 模块
@@ -81,3 +81,5 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具类�
 > `SqlCmdUtils` - 模拟SQL客户端
 
 ## 支持
+![微信付款码](./weixin_fkcode.jpg)
+![支付宝付款码](./zhifubao_fkcode.jpg)
