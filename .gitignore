@@ -1,0 +1,13 @@
+.idea
+.classpath
+.project
+*.iml
+*.eml
+target
+*.log
+*.log.*
+**/resources/liwy-oscafe-admin
+generatorConfig.xml
+.DS_Store
+*.cache
+*.lock
