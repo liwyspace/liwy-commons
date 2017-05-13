@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/commons-dbutils/commons-dbutils.iml" filepath="$PROJECT_DIR$/commons-dbutils/commons-dbutils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/commons-lang/liwy-commons-lang.iml" filepath="$PROJECT_DIR$/commons-lang/liwy-commons-lang.iml" />
       <module fileurl="file://$PROJECT_DIR$/liwy-commons.iml" filepath="$PROJECT_DIR$/liwy-commons.iml" />
-      <module fileurl="file://$PROJECT_DIR$/liwy-commons-lang/liwy-commons-lang.iml" filepath="$PROJECT_DIR$/liwy-commons-lang/liwy-commons-lang.iml" />
     </modules>
   </component>
 </project>

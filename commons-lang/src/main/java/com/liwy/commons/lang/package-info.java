@@ -14,20 +14,20 @@
  * 
  * 
  * <h3>字符串处理 - StringUtils</h3>
- * <p>主要的类为{@link com.liwy.commons.lang.StringUtils}</p>
+ * <p>主要的类为{link com.liwy.commons.lang.StringUtils}</p>
  * 
  * <h3>随机工具 - RandomUtils</h3>
- * <p>主要的类为{@link com.liwy.commons.lang.RandomUtils} 主要用于生成随机的数字与字符串</p>
+ * <p>主要的类为{link com.liwy.commons.lang.RandomUtils} 主要用于生成随机的数字与字符串</p>
  * 
  * 
  * 
  * ===========================================================================
- * <p>提供高度可重复使用的静态的实用方法，主要关注增加价值到{@link java.lang}类。
+ * <p>提供高度可重复使用的静态的实用方法，主要关注增加价值到{link java.lang}类。
  * 这些类中的大多数是不可变的，因此线程安全。
- * 然而{@link org.apache.commons.lang3.charset }是目前在所有情况下保证线程安全。</p>
+ * 然而{link org.apache.commons.lang3.charset }是目前在所有情况下保证线程安全。</p>
  * 
- * <p>顶级包中包含了各种实用工具类，虽然有各种各样的子包包括{@link org.apache.commons.lang3.math}, 
- * {@link org.apache.commons.lang3.concurrent} and {@link org.apache.commons.lang3.builder}。
+ * <p>顶级包中包含了各种实用工具类，虽然有各种各样的子包包括{link org.apache.commons.lang3.math},
+ * {link org.apache.commons.lang3.concurrent} and {link org.apache.commons.lang3.builder}。
  * 使用工具类一般是简单的。
  * 它们等价于另一种语言的全局函数，即独立的、线程安全的、静态方法的集合。
  * 相比之下，子包可能包含已经实现的接口或可能从代码中继承了所有方法的类。
@@ -47,25 +47,25 @@
  * <h3>字符串处理 - StringUtils, StringEscapeUtils, RandomStringUtils</h3>
  *
  * <p>郎有一系列的字符串工具。
- * 第一个是{@link org.apache.commons.lang3.stringutils}，许多功能的调整，大量变换、挤压和拥抱{@link java.lang.string java lang.strings }。
- * 除了stringutils，还有其他一系列字符串操作类；{@link org.apache.commons.lang3.randomstringutils }和{@link org.apache.commons.lang3.stringescapeutils stringescapeutils }。
+ * 第一个是{link org.apache.commons.lang3.stringutils}，许多功能的调整，大量变换、挤压和拥抱{link java.lang.string java lang.strings }。
+ * 除了stringutils，还有其他一系列字符串操作类；{link org.apache.commons.lang3.randomstringutils }和{link org.apache.commons.lang3.stringescapeutils stringescapeutils }。
  * randomstringutils不言而喻。
  * 它提供了生成文本片段的方法，如可能用于默认密码。
  * stringescapeutils包含方法逃脱，unescape java，JavaScript，HTML，XML和SQL。</p>
  * 
  * <p>这些都是开始使用理想的类，如果你想进入Lang.
- * stringutils'{@link org.apache.commons.lang3.StringUtils#capitalize(String)}, {@link org.apache.commons.lang3.StringUtils#substringBetween(String, String)}/{@link org.apache.commons.lang3.StringUtils#substringBefore(String, String) Before}/{@link org.apache.commons.lang3.StringUtils#substringAfter(String, String) After}, {@link org.apache.commons.lang3.StringUtils#split(String)} and {@link org.apache.commons.lang3.StringUtils#join(Object[])}开始有好的方法。
+ * stringutils'{link org.apache.commons.lang3.StringUtils#capitalize(String)}, {link org.apache.commons.lang3.StringUtils#substringBetween(String, String)}/{link org.apache.commons.lang3.StringUtils#substringBefore(String, String) Before}/{link org.apache.commons.lang3.StringUtils#substringAfter(String, String) After}, {link org.apache.commons.lang3.StringUtils#split(String)} and {link org.apache.commons.lang3.StringUtils#join(Object[])}开始有好的方法。
  * 如果你使用java.sql.statements很多，StringEscapeUtils.escapeSql可能会感兴趣的。
  * </p>
  *
  * <h3>字符处理 - CharSetUtils, CharSet, CharRange, CharUtils</h3>
  *
  * <p>In addition to dealing with Strings, it's also important to deal with chars and Characters.
- * {@link org.apache.commons.lang3.CharUtils} exists for this purpose, while {@link org.apache.commons.lang3.CharSetUtils} exists for set-manipulation of Strings.
+ * {link org.apache.commons.lang3.CharUtils} exists for this purpose, while {link org.apache.commons.lang3.CharSetUtils} exists for set-manipulation of Strings.
  * Be careful, although CharSetUtils takes an argument of type String, it is only as a set of characters.
  * For example, <code>CharSetUtils.delete("testtest", "tr")</code> will remove all t's and all r's from the String, not just the String "tr". </p>
  *
- * <p>{@link org.apache.commons.lang3.CharRange} and {@link org.apache.commons.lang3.CharSet} are both used internally by CharSetUtils, and will probably rarely be used.</p>
+ * <p>{link org.apache.commons.lang3.CharRange} and {link org.apache.commons.lang3.CharSet} are both used internally by CharSetUtils, and will probably rarely be used.</p>
  *
  * <h3>JVM 互动 - SystemUtils, CharEncoding</h3>
  *
@@ -74,7 +74,7 @@
  * Having pushed out a few JDK 1.3 bits that had slipped in (<code>Collections.EMPTY_MAP</code> is a classic offender), I then found that one of the Unit Tests was dying mysteriously under JDK 1.2, but ran fine under JDK 1.3.
  * There was no obvious solution and I needed to move onwards, so the simple solution was to wrap that particular test in a <code>if(SystemUtils.isJavaVersionAtLeast(1.3f)) {</code>, make a note and move on.</p>
  *
- * <p>The {@link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
+ * <p>The {link org.apache.commons.lang3.CharEncoding} class is also used to interact with the Java environment and may be used to see which character encodings are supported in a particular environment. </p>
  *
  * <h3>序列化 - SerializationUtils, SerializationException</h3>
  *
@@ -83,12 +83,12 @@
  *
  * <h3>各种方法 - ObjectUtils, ClassUtils, ArrayUtils, BooleanUtils</h3>
  *
- * <p>你会相信它, {@link org.apache.commons.lang3.ObjectUtils} 包含方便的对象功能, 主要是空安全实现的方法在 {@link java.lang.Object}.</p>
+ * <p>你会相信它, {link org.apache.commons.lang3.ObjectUtils} 包含方便的对象功能, 主要是空安全实现的方法在 {link java.lang.Object}.</p>
  *
- * <p>{@link org.apache.commons.lang3.ClassUtils} 在很大程度上是一组反射的辅助方法.
+ * <p>{link org.apache.commons.lang3.ClassUtils} 在很大程度上是一组反射的辅助方法.
  * 特别要注意的是隐藏在ClassUtils的比较器，用于排序的类和包对象的名字；然而他们只是按字母顺序排序，不懂整理的习惯 <code>java</code> and <code>javax</code> first.</p>
  *
- * <p>下一步, {@link org.apache.commons.lang3.ArrayUtils}.
+ * <p>下一步, {link org.apache.commons.lang3.ArrayUtils}.
  * 这是一个大的，有许多方法和许多重载这些方法，所以它可能是值得深入研究这里。
  * 在开始之前，假设每一个方法都重载了所有的原语和对象。
  * 此外，短的“xxx”意味着一个通用的原始类型，但通常也包括对象。 </p>
@@ -108,7 +108,7 @@
  *  <li>Primitive to primitive wrapper conversion is handled by the <code>toObject(xxx[])</code> and <code>toPrimitive(Xxx[])</code> methods. </li>
  * </ul>
  *
- * <p>最后, {@link org.apache.commons.lang3.ArrayUtils#toMap(Object[])} 值得特别注意。
+ * <p>最后, {link org.apache.commons.lang3.ArrayUtils#toMap(Object[])} 值得特别注意。
  * 它不是一种重载的用于数组的方法，而是一种简单的从字面创建映射的方法。 </p>
  *
  * <h4>Using toMap</h4>
@@ -122,12 +122,12 @@
  * </code>
  * </pre>
  *
- * <p>Our final util class is {@link org.apache.commons.lang3.BooleanUtils}.
- * 它包含各种布尔代理方法，可能最感兴趣的是 {@link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf.</p>
+ * <p>Our final util class is {link org.apache.commons.lang3.BooleanUtils}.
+ * 它包含各种布尔代理方法，可能最感兴趣的是 {link org.apache.commons.lang3.BooleanUtils#toBoolean(String)} method which turns various positive/negative Strings into a Boolean object, and not just true/false as with Boolean.valueOf.</p>
  *
  * <h3>零碎 - BitField, Validate</h3>
  * <p>在结束我们的包，我们留下了一些类，不适合任何话题至今。 </p>
- * <p>The {@link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {@link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2). </p>
+ * <p>The {link org.apache.commons.lang3.BitField} class provides a wrapper class around the classic bitmask integer, whilst the {link org.apache.commons.lang3.Validate} class may be used for assertions (remember, we support Java 1.2). </p>
  *
  * @since 1.0
  */

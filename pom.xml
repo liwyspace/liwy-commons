@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>0.0.1</version>
     <modules>
-        <module>liwy-commons-lang</module>
+        <module>commons-lang</module>
         <module>commons-dbutils</module>
     </modules>
 
