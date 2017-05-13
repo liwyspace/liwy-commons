@@ -10,7 +10,7 @@
     <version>0.0.1</version>
     <modules>
         <module>liwy-commons-lang</module>
-        <module>liwy-commons-dbutils</module>
+        <module>commons-dbutils</module>
     </modules>
 
     <properties>
