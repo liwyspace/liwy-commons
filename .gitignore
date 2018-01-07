@@ -1,13 +1,30 @@
-.idea
-.classpath
-.project
-*.iml
-*.eml
-target
-*.log
-*.log.*
-**/resources/liwy-oscafe-admin
-generatorConfig.xml
+# system ignore
 .DS_Store
+Thumbs.db
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IDEA
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# Maven
+target/
+dependency-reduced-pom.xml
+pom.xml.versionsBackup
+
+# Gradle
+.gradle/
+build/
+
+# Temp ignore
+*.log
 *.cache
-*.lock
+*.diff
+*.patch
+*.tmp
