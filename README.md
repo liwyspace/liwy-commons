@@ -1,6 +1,6 @@
 # LIWY-COMMONS
 
-[![JDK 1.6](https://img.shields.io/badge/JDK-1.7-green.svg)]()
+[![JDK 1.7](https://img.shields.io/badge/JDK-1.7-green.svg)]()
 [![GitHub license](https://img.shields.io/github/license/liwyspace/liwy-commons.svg)](https://github.com/liwyspace/liwy-commons/blob/master/LICENSE)
 [![GitHub issues](https://img.shields.io/github/issues/liwyspace/liwy-commons.svg?style=social)](https://github.com/liwyspace/liwy-commons/issues)
 [![GitHub stars](https://img.shields.io/github/stars/liwyspace/liwy-commons.svg?style=social)](https://github.com/liwyspace/liwy-commons/stargazers)
