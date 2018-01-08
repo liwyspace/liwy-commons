@@ -7,11 +7,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>commons-dbutils</artifactId>
+    <artifactId>liwy-commons-lang</artifactId>
     <packaging>jar</packaging>
 
-    <name>commons-dbutils</name>
-    <url>http://maven.apache.org</url>
+    <name>liwy-commons-lang</name>
+    <url>http://www.oscafe.org</url>
+    <description>基础工具集</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,15 +22,6 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!-- 本地安装的Oracle驱动 -->
-        <dependency>
-            <groupId>com.oracle</groupId>
-            <artifactId>ojdbc6</artifactId>
         </dependency>
     </dependencies>
 
@@ -46,15 +38,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-            </plugin>
-            <!-- 跳过测试 -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.18.1</version>
-                <configuration>
-                    <skipTests>true</skipTests>
-                </configuration>
             </plugin>
         </plugins>
     </build>

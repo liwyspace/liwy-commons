@@ -8,14 +8,18 @@
     <artifactId>liwy-commons</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
+
     <modules>
-        <module>commons-lang</module>
-        <module>commons-dbutils</module>
-        <module>commons-http</module>
+        <module>liwy-commons-lang</module>
+        <module>liwy-commons-dbutils</module>
+        <module>liwy-commons-http</module>
     </modules>
 
     <properties>
-        <jdk.version>1.8</jdk.version>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
+
+        <jdk.version>1.7</jdk.version>
         <junit.version>4.12</junit.version>
     </properties>
 
@@ -46,7 +50,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>2.3.2</version>
+                    <version>3.6.0</version>
                     <configuration>
                         <source>${jdk.version}</source>
                         <target>${jdk.version}</target>
@@ -56,13 +60,13 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
-                    <version>2.6</version>
+                    <version>3.0.2</version>
                 </plugin>
                 <!-- 生成javadoc文档包的插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.2</version>
+                    <version>2.10.4</version>
                     <configuration>
                         <aggregate>true</aggregate>
                         <charset>UTF-8</charset>
@@ -82,7 +86,7 @@
                 <!-- 生成sources源码包的插件 -->
                 <plugin>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.4</version>
+                    <version>3.0.1</version>
                     <configuration>
                         <attach>true</attach>
                     </configuration>

@@ -1,7 +1,5 @@
 package com.liwy.commons;
 
-import org.junit.Test;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,7 +19,7 @@ public class URLConnectionTest {
     //	private final String URLSTR = "https://open.leshui365.com/api/receiveDeclareData";
     private final String URLSTR = "http://www.oscafe.net";
 
-    @Test
+//    @Test
     public void testURLConnection() {
 
         try {

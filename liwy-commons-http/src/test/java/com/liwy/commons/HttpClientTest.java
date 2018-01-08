@@ -59,7 +59,7 @@ public class HttpClientTest {
 
     // private final String URLSTR = "http://www.oscafe.net";
 
-    @Test
+//    @Test
     public void testHttpClient() throws IOException {
         //1. URIBuilder工具类
         try {
@@ -307,7 +307,7 @@ public class HttpClientTest {
     /**
      * 测试https的get请求
      */
-    @Test
+//    @Test
     public void testHttpsGet() {
 
         try {
@@ -424,7 +424,7 @@ public class HttpClientTest {
     /**
      * 测试上传文件
      */
-    @Test
+//    @Test
     public void testUpload() {
         // 1. 创建httpClient
         CloseableHttpClient httpClient = HttpClients.createDefault();

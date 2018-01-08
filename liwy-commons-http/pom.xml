@@ -7,11 +7,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>commons-http</artifactId>
+    <artifactId>liwy-commons-http</artifactId>
     <packaging>jar</packaging>
 
-    <name>commons-http</name>
-    <url>http://maven.apache.org</url>
+    <name>liwy-commons-http</name>
+    <url>http://www.oscafe.org</url>
+    <description>Http工具集</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
