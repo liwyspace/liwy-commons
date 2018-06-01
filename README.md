@@ -131,6 +131,7 @@ compile 'com.liwy.commons:commons-lang:0.0.1'
 * Jodd             [https://github.com/oblac/jodd](https://github.com/oblac/jodd)
 * Hutool           [https://gitee.com/loolly/hutool](https://gitee.com/loolly/hutool)
 * JCaptcha         [http://jcaptcha.sourceforge.net/](http://jcaptcha.sourceforge.net/)
+* VJTools          [https://github.com/vipshop/vjtools](https://github.com/vipshop/vjtools)
 
 
 ## 6. 支持
