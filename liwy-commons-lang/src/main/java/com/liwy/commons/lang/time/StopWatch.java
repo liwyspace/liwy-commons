@@ -1,4 +1,4 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.time;
 
 import java.util.concurrent.TimeUnit;
 

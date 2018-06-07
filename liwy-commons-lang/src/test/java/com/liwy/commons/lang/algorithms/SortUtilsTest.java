@@ -1,5 +1,6 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.algorithms;
 
+import com.liwy.commons.lang.algorithms.SortUtils;
 import org.junit.Test;
 
 public class SortUtilsTest {

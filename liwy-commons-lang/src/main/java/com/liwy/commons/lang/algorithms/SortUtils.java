@@ -1,4 +1,4 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.algorithms;
 
 /**
  * 排序算法工具类

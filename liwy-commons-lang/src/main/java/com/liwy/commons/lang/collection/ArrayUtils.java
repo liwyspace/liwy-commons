@@ -1,4 +1,6 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.collection;
+
+import com.liwy.commons.lang.ClassUtils;
 
 import java.lang.reflect.Array;
 import java.util.HashMap;

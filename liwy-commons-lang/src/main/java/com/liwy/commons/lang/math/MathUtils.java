@@ -1,4 +1,4 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.math;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

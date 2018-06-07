@@ -1,4 +1,4 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.time;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

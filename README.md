@@ -24,7 +24,7 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 
 ## 2. 模块
 
-* `liwy-commons-lang` - 基础工具，包括String、Array、Math、Date等
+* `liwy-commons-lang` - 基础工具
 * `liwy-commons-codec` - 加密解密工具
 * `liwy-commons-validator` - 校验工具
 * `liwy-commons-dbutils` - JDBC工具
@@ -36,16 +36,38 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 
 ### liwy-commons-lang
 
-* `ArrayUtils` - 数组工具
-* `ClassUtils` - Class工具
-* `DateUtils` - 日期工具
-* `MathUtils` - 数学工具
-* `RandomUtils` - 随机工具
-* `ReflectUtils` - 反射工具
-* `SortUtils` - 排序算法
-* `StopWatch` - 计时器工具
 * `StringUtils` - 字符串工具
+* `RandomUtils` - 随机工具
+* `EnumUtils` - 枚举工具
 * `SystemUtils` - 系统参数工具
+* `ExceptionUtils` - 异常工具
+* `BeanUtils` - Bean工具
+* `ClassUtils` - Class工具
+* `ReflectUtils` - 反射工具
+* `JsonUtils` - JSON工具
+* `PropertiesUtils` - Properties工具
+* `CsvUtils` - Csv工具
+* algorithms 算法包
+    * `SortUtils` - 排序算法
+* time 时间包
+   * `DateUtils` - 日期工具
+   * `StopwatchUtils` - 秒表工具
+* math 数学包
+    * `NumberUtils` - 数字工具
+    * `MathUtils` - 数学工具
+* collection 集合包
+    * `ArrayUtils` - 数组工具
+    * `ListUtils` - List工具
+    * `MapUtils` - Map工具
+    * `QueueUtils` - Queue工具
+    * `SetUtils` - Set工具
+* io IO包
+    * `StreamUtils` - IO工具
+    * `FileUtils` - 文件工具
+    * `PathUtils` - 路径工具
+    * `FileNameUtils` - 文件名工具
+* concurrent 并发包
+    * `ThreadUtils` - 多线程工具
 
 ### liwy-commons-codec
 
@@ -126,12 +148,22 @@ compile 'com.liwy.commons:commons-lang:0.0.1'
 请移步: [http://liwy-commons.mydoc.io/](http://liwy-commons.mydoc.io/)
 
 ## 5. 参考
-* Apache Commons   [http://commons.apache.org/](http://commons.apache.org/)
-* Spring Framework [http://projects.spring.io/spring-framework/](http://projects.spring.io/spring-framework/)
-* Jodd             [https://github.com/oblac/jodd](https://github.com/oblac/jodd)
-* Hutool           [https://gitee.com/loolly/hutool](https://gitee.com/loolly/hutool)
-* JCaptcha         [http://jcaptcha.sourceforge.net/](http://jcaptcha.sourceforge.net/)
-* VJTools          [https://github.com/vipshop/vjtools](https://github.com/vipshop/vjtools)
+* commons-lang          [https://github.com/apache/commons-lang](https://github.com/apache/commons-lang)
+* commons-io            [https://github.com/apache/commons-io](https://github.com/apache/commons-io)
+* commons-dbutils       [https://github.com/apache/commons-dbutils](https://github.com/apache/commons-dbutils)
+* Commons-collections   [https://github.com/apache/commons-collections](https://github.com/apache/commons-collections)
+* commons-codec         [https://github.com/apache/commons-codec](https://github.com/apache/commons-codec)
+* commons-validator     [https://github.com/apache/commons-validator](https://github.com/apache/commons-validator)
+* commons-proxy         [https://github.com/apache/commons-proxy](https://github.com/apache/commons-proxy)
+* commons-compress      [https://github.com/apache/commons-compress](https://github.com/apache/commons-compress)
+* commons-imaging       [https://github.com/apache/commons-imaging](https://github.com/apache/commons-imaging)
+* Jodd                  [https://github.com/oblac/jodd](https://github.com/oblac/jodd)
+* guava                 [https://github.com/google/guava](https://github.com/google/guava)
+* jcommon               [https://github.com/facebook/jcommon](https://github.com/facebook/jcommon)
+* TwitterCommons        [https://github.com/twitter/commons](https://github.com/twitter/commons)
+* VJTools               [https://github.com/vipshop/vjtools](https://github.com/vipshop/vjtools)
+* Hutool                [https://gitee.com/loolly/hutool](https://gitee.com/loolly/hutool)
+* JCaptcha              [http://jcaptcha.sourceforge.net/](http://jcaptcha.sourceforge.net/)
 
 
 ## 6. 支持
