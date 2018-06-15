@@ -8,18 +8,34 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * <b>模块：</b> <br/>
- * <b>名称：</b> <br/>
- * <b>描述：</b> <br/>
- * <b>作者：</b> wenyao02.li <br/>
- * <b>创建时间：</b> 2018/6/14 10:54 <br/>
- * <b>版本：</b> V1.0 <br/>
+ * <p>Ant风格Path匹配模式<p/>
+ *
+ * <pre>
+ *     `?` 匹配1个字符
+ *     `*` 匹配0个或多个字符
+ *     `**` 匹配路径中的0个或多个目录
+ * </pre>
+ *
+ * <ul>
+ *     <li><b>isMatch<b/>
+ *          - 路径字符串是否匹配pattern字符串</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class AntPathMatcher {
     /** 默认路径分隔符: "/" */
     public static final String DEFAULT_PATH_SEPARATOR = "/";
 
-    public boolean match(String pattern, String path) {
+    /**
+     * <p>是否匹配</p>
+     *
+     * @param pattern 通配符表达式
+     * @param path 要匹配的路径
+     * @return boolean 如果匹配返回true
+     */
+    public boolean isMatch(String pattern, String path) {
         if (path.startsWith(this.DEFAULT_PATH_SEPARATOR) != pattern.startsWith(this.DEFAULT_PATH_SEPARATOR)) {
             return false;
         }
@@ -147,7 +163,12 @@ public class AntPathMatcher {
         return true;
     }
 
-    // 将路径通过路径分隔(/)符拆分成数组
+    /**
+     * <p>将路径通过路径分隔(/)符拆分成数组</p>
+     *
+     * @param path
+     * @return java.lang.String[]
+     */
     protected String[] tokenizePath(String path) {
         if (path == null) {
             return null;
@@ -209,7 +230,14 @@ public class AntPathMatcher {
             this.pattern = Pattern.compile(patternBuilder.toString());
         }
 
-        // 将正则字符串转换为字面量
+        /**
+         * <p>将正则字符串转换为字面量</p>
+         *
+         * @param s
+         * @param start
+         * @param end
+         * @return java.lang.String
+         */
         private String quote(String s, int start, int end) {
             if (start == end) {
                 return "";

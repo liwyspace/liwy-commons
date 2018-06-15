@@ -47,6 +47,7 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 * `JsonUtils` - JSON工具
 * `PropertiesUtils` - Properties工具
 * `CsvUtils` - Csv工具
+* `AntPathMatcher` - Ant风格Path匹配工具
 * algorithms 算法包
     * `SortUtils` - 排序算法
 * time 时间包
@@ -162,7 +163,7 @@ compile 'com.liwy.commons:commons-lang:0.0.1'
 * jcommon               [https://github.com/facebook/jcommon](https://github.com/facebook/jcommon)
 * TwitterCommons        [https://github.com/twitter/commons](https://github.com/twitter/commons)
 * VJTools               [https://github.com/vipshop/vjtools](https://github.com/vipshop/vjtools)
-* Hutool                [https://gitee.com/loolly/hutool](https://gitee.com/loolly/hutool)
+* Hutool                [https://github.com/looly/hutool/](https://github.com/looly/hutool/)
 * JCaptcha              [http://jcaptcha.sourceforge.net/](http://jcaptcha.sourceforge.net/)
 
 
