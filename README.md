@@ -151,6 +151,7 @@ compile 'com.liwy.commons:commons-lang:0.0.1'
 ## 5. 参考
 * commons-lang          [https://github.com/apache/commons-lang](https://github.com/apache/commons-lang)
 * commons-io            [https://github.com/apache/commons-io](https://github.com/apache/commons-io)
+* commons-beanutils     [https://github.com/apache/commons-beanutils](https://github.com/apache/commons-beanutils)
 * commons-dbutils       [https://github.com/apache/commons-dbutils](https://github.com/apache/commons-dbutils)
 * Commons-collections   [https://github.com/apache/commons-collections](https://github.com/apache/commons-collections)
 * commons-codec         [https://github.com/apache/commons-codec](https://github.com/apache/commons-codec)

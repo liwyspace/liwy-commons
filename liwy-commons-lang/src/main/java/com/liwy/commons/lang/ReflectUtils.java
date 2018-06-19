@@ -458,13 +458,13 @@ public class ReflectUtils {
      * @throws InstantiationException if an error occurs on instantiation
      * @see #invokeExactConstructor(Class, Object[], Class[])
      */
-    public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
-            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-            InstantiationException {
-        args = ArrayUtils.nullToEmpty(args);
-        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
-        return invokeExactConstructor(cls, args, parameterTypes);
-    }
+//    public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
+//            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+//            InstantiationException {
+//        args = ArrayUtils.nullToEmpty(args);
+//        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
+//        return invokeExactConstructor(cls, args, parameterTypes);
+//    }
 
     /**
      * <p>Returns a new instance of the specified class choosing the right constructor
@@ -709,13 +709,13 @@ public class ReflectUtils {
      * @throws IllegalAccessException if the requested method is not accessible
      *  via reflection
      */
-    public static Object invokeExactMethod(final Object object, final String methodName,
-            Object... args) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        args = ArrayUtils.nullToEmpty(args);
-        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-        return invokeExactMethod(object, methodName, args, parameterTypes);
-    }
+//    public static Object invokeExactMethod(final Object object, final String methodName,
+//            Object... args) throws NoSuchMethodException,
+//            IllegalAccessException, InvocationTargetException {
+//        args = ArrayUtils.nullToEmpty(args);
+//        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
+//        return invokeExactMethod(object, methodName, args, parameterTypes);
+//    }
     /**
      * <p>Invokes a method whose parameter types match exactly the parameter
      * types given.</p>

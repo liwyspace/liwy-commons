@@ -1,125 +1,194 @@
 package com.liwy.commons.lang;
 
+import java.beans.BeanInfo;
+import java.beans.IntrospectionException;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <b>名称：</b> <br/>
- * <b>作者：</b> wenyao02.li <br/>
- * <b>创建时间：</b> 2018/6/7 16:42 <br/>
- * <b>版本：</b> V1.0 <br/>
+ * <p>常用Class工具类</p>
+ *
+ * <ul>
+ *  <li><b>mapToBean</b>
+ *      - Map转Bean类型</li>
+ *  <li><b>beanToMap</b>
+ *      - Bean对象转Map</li>
+ *  <li><b>getSimpleProperty</b>
+ *      - 通过Get方法获取简单bean的属性值</li>
+ *  <li><b>setSimpleProperty</b>
+ *      - 通过Set方法设置简单bean的属性值</li>
+ *  <li><b>getPropertyDescriptors</b>
+ *      - 获取bean的所有有效属性描述</li>
+ *  <li><b>getPropertyDescriptor</b>
+ *      - 获取bean的指定有效属性描述</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class BeanUtils {
     /**
-     * Map转换为Bean对象
+     * Map转Bean类型
      *
-     * @param <T> Bean类型
-     * @param map {@link Map}
-     * @param beanClass Bean Class
-     * @param isIgnoreError 是否忽略注入错误
-     * @return Bean
+     * @param bean
+     * @param properties
+     * @return void
      */
-    public static <T> T mapToBean(Map<?, ?> map, Class<T> beanClass, boolean isIgnoreError) {
-        return fillBeanWithMap(map, ReflectUtil.newInstance(beanClass), isIgnoreError);
-    }
+    public static void mapToBean(final Object bean, final Map<String, ? extends Object> properties)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        if ((bean == null) || (properties == null)) {
+            return;
+        }
+        for(final Map.Entry<String, ? extends Object> entry : properties.entrySet()) {
+            final String name = entry.getKey();
+            if (name == null) {
+                continue;
+            }
 
-    /**
-     * Map转换为Bean对象<br>
-     * 忽略大小写
-     *
-     * @param <T> Bean类型
-     * @param map Map
-     * @param beanClass Bean Class
-     * @param isIgnoreError 是否忽略注入错误
-     * @return Bean
-     */
-    public static <T> T mapToBeanIgnoreCase(Map<?, ?> map, Class<T> beanClass, boolean isIgnoreError) {
-        return fillBeanWithMapIgnoreCase(map, ReflectUtil.newInstance(beanClass), isIgnoreError);
-    }
+            setSimpleProperty(bean, name, entry.getValue(), true);
+        }
 
-    /**
-     * Map转换为Bean对象
-     *
-     * @param <T> Bean类型
-     * @param map {@link Map}
-     * @param beanClass Bean Class
-     * @param copyOptions 转Bean选项
-     * @return Bean
-     */
-    public static <T> T mapToBean(Map<?, ?> map, Class<T> beanClass, CopyOptions copyOptions) {
-        return fillBeanWithMap(map, ReflectUtil.newInstance(beanClass), copyOptions);
-    }
-
-
-
-    /**
-     * 对象转Map，不进行驼峰转下划线，不忽略值为空的字段
-     *
-     * @param bean bean对象
-     * @return Map
-     */
-    public static Map<String, Object> beanToMap(Object bean) {
-        return beanToMap(bean, false, false);
     }
 
     /**
      * 对象转Map
      *
-     * @param bean bean对象
-     * @param isToUnderlineCase 是否转换为下划线模式
-     * @param ignoreNullValue 是否忽略值为空的字段
-     * @return Map
+     * @param bean
+     * @return java.util.Map<java.lang.String,java.lang.Object>
      */
-    public static Map<String, Object> beanToMap(Object bean, boolean isToUnderlineCase, boolean ignoreNullValue) {
-        return beanToMap(bean, new HashMap<String, Object>(), isToUnderlineCase, ignoreNullValue);
+    public static Map<String, Object> beanToMap(Object bean) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        if (bean == null) {
+            return (new java.util.HashMap<>());
+        }
+        Map<String, Object> beanMap = new HashMap<>();
+
+        PropertyDescriptor[] descriptors = getPropertyDescriptors(bean);
+        for (PropertyDescriptor descriptor : descriptors) {
+            String name = descriptor.getName();
+            Method readMethod = descriptor.getReadMethod();
+            if (readMethod != null) {
+                beanMap.put(name, readMethod.invoke(bean));
+            }
+        }
+        return beanMap;
     }
 
     /**
-     * 对象转Map<br>
+     * 通过Get方法获取属性的值
      *
-     * <pre>
-     * 1. 字段筛选，可以去除不需要的字段
-     * 2. 字段变换，例如实现驼峰转下划线
-     * 3. 自定义字段前缀或后缀等等
-     * </pre>
-     *
-     * @param bean bean对象
-     * @param targetMap 目标的Map
-     * @param isToUnderlineCase
-     * @param ignoreNullValue 是否忽略值为空的字段
-     * @return Map
+     * @param bean
+     * @param name
+     * @return java.lang.Object
      */
-    public static Map<String, Object> beanToMap(Object bean, Map<String, Object> targetMap, boolean isToUnderlineCase, boolean ignoreNullValue) {
+    public static Object getSimpleProperty(final Object bean, final String name)
+            throws IllegalAccessException, InvocationTargetException,
+            NoSuchMethodException {
+
         if (bean == null) {
-            return null;
+            throw new IllegalArgumentException("No bean specified");
+        }
+        if (name == null) {
+            throw new IllegalArgumentException("No name specified for bean class '" +
+                    bean.getClass() + "'");
         }
 
-        final Collection<PropDesc> props = BeanUtil.getBeanDesc(bean.getClass()).getProps();
+        // Retrieve the property getter method for the specified property
+        final PropertyDescriptor descriptor =
+                getPropertyDescriptor(bean, name);
+        if (descriptor == null) {
+            throw new NoSuchMethodException("Unknown property '" +
+                    name + "' on class '" + bean.getClass() + "'" );
+        }
+        final Method readMethod = descriptor.getReadMethod();
+        if (readMethod == null) {
+            throw new NoSuchMethodException("Property '" + name +
+                    "' has no getter method in class '" + bean.getClass() + "'");
+        }
 
-        String key;
-        Method getter;
-        Object value;
-        for (PropDesc prop : props) {
-            key = prop.getFieldName();
-            // 过滤class属性
-            // 得到property对应的getter方法
-            getter = prop.getGetter();
-            if (null != getter) {
-                // 只读取有getter方法的属性
-                try {
-                    value = getter.invoke(bean);
-                } catch (Exception ignore) {
-                    continue;
-                }
-                if (false == ignoreNullValue || (null != value && false == value.equals(bean))) {
-                    key = isToUnderlineCase ? StringUtils.toUnderlineCase(key) : key;
-                    if (null != key) {
-                        targetMap.put(key, value);
-                    }
-                }
+        // Call the property getter and return the value
+        final Object value = readMethod.invoke(bean);
+        return (value);
+    }
+
+    /**
+     * 通过Set方法设置属性的值
+     *
+     * @param bean
+     * @param name
+     * @param value
+     * @param ignore 是否忽略不合法的属性
+     * @return void
+     */
+    public static void setSimpleProperty(final Object bean, String name, final Object value, boolean ignore)
+            throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+        if (bean == null) {
+            throw new IllegalArgumentException("No bean specified");
+        }
+        if (name == null) {
+            throw new IllegalArgumentException("No name specified for bean class '" +
+                    bean.getClass() + "'");
+        }
+
+        final PropertyDescriptor descriptor =
+                getPropertyDescriptor(bean, name);
+        if (descriptor != null) {
+            final Method writeMethod = descriptor.getWriteMethod();
+            if (writeMethod != null) {
+                final Object[] values = new Object[1];
+                values[0] = value;
+                writeMethod.invoke(bean, values);
+            } else if(!ignore) {
+                throw new NoSuchMethodException("Property '" + name +
+                        "' has no setter method in class '" + bean.getClass() + "'");
+            }
+        } else if(!ignore) {
+            throw new NoSuchMethodException("Unknown property '" +
+                    name + "' on class '" + bean.getClass() + "'" );
+        }
+    }
+
+    /**
+     * 获取bean的所有有效属性描述
+     *
+     * @param bean
+     * @return java.beans.PropertyDescriptor[]
+     */
+    public static PropertyDescriptor[] getPropertyDescriptors(Object bean) {
+        BeanInfo beanInfo = null;
+        try {
+            beanInfo = Introspector.getBeanInfo(bean.getClass());
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        }
+        PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
+        if (descriptors == null) {
+            descriptors = new PropertyDescriptor[0];
+        }
+        return descriptors;
+    }
+
+    /**
+     * 获取bean的指定有效属性描述
+     *
+     * @param bean
+     * @param name
+     * @return java.beans.PropertyDescriptor
+     */
+    public static PropertyDescriptor getPropertyDescriptor(Object bean, String name) {
+        PropertyDescriptor[] propertyDescriptors = getPropertyDescriptors(bean);
+        for (final PropertyDescriptor pd : propertyDescriptors) {
+            if (name.equals(pd.getName())) {
+                return pd;
             }
         }
-        return targetMap;
+        return null;
     }
+
+
 }
+
+

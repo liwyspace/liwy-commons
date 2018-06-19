@@ -15,22 +15,22 @@ public class AntPathMatcherTest {
     @Test
     public void testMatch() {
         AntPathMatcher matcher = new AntPathMatcher();
-        Assert.assertTrue(matcher.match("src/main/java/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/main/**","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/main/**/","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/main/**","src/main/java/com/liwy/"));
-        Assert.assertTrue(matcher.match("src/main/java/com/liwy/**","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("**/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/main/**/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/**/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/**/java/**/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.match("src/**/ja*/**/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/main/java/com/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/main/**","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/main/**/","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/main/**","src/main/java/com/liwy/"));
+        Assert.assertTrue(matcher.isMatch("src/main/java/com/liwy/**","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("**/com/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/main/**/com/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/**/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/**/java/**/liwy","src/main/java/com/liwy"));
+        Assert.assertTrue(matcher.isMatch("src/**/ja*/**/liwy","src/main/java/com/liwy"));
 
 
-        Assert.assertFalse(matcher.match("/src/main/java/com/liwy","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.match("src/main/java/com/liwy/","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.match("src/main/java/com/liwy/*","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.match("/**/com/liwy","src/main/java/com/liwy"));
+        Assert.assertFalse(matcher.isMatch("/src/main/java/com/liwy","src/main/java/com/liwy"));
+        Assert.assertFalse(matcher.isMatch("src/main/java/com/liwy/","src/main/java/com/liwy"));
+        Assert.assertFalse(matcher.isMatch("src/main/java/com/liwy/*","src/main/java/com/liwy"));
+        Assert.assertFalse(matcher.isMatch("/**/com/liwy","src/main/java/com/liwy"));
 
     }
 }
