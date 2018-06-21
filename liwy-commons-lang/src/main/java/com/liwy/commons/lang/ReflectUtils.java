@@ -7,23 +7,56 @@ import java.lang.reflect.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * <p>常用反射工具类</p>
+ *
+ * <ul>
+ *  <li><b>getDeclaredField</b>
+ *      - 得到当前类的一个可访问的Field</li>
+ *  <li><b>getField</b>
+ *      - 得到当前类及父类的一个可访问的Field</li>
+ *  <li><b>getAllFields</b>
+ *      - 得到当前类及父类的所有可访问的Field</li>
+ *  <li><b>getFieldsWithAnnotation</b>
+ *      - 得到当前类及父类的所有带指定注解的Field</li>
+ *  <li><b>getFieldValue</b>
+ *      - 获取指定字段的值</li>
+ *  <li><b>setFieldValue</b>
+ *      - 设置指定字段的值</li>
+ *  <li><b>removeFinalModifier</b>
+ *      - 删除字段的Final修饰符</li>
+ *  <li><b>getAccessibleConstructor</b>
+ *      - 获取一个可访问的构造器</li>
+ *  <li><b>invokeConstructor</b>
+ *      - 执行class的构造器</li>
+ *  <li><b>getAccessibleMethod</b>
+ *      - 获取可访问的方法</li>
+ *  <li><b>getMethodsWithAnnotation</b>
+ *      - 获取带有指定注解的方法</li>
+ *  <li><b>invokeMethod</b>
+ *      - 执行指定注解</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
+ */
 public class ReflectUtils {
 	private static final int ACCESS_TEST = Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE;
     /**
-     * 返回 a {@link Member} 是否是可访问的.
-     * @param m Member to check
-     * @return {@code true} if <code>m</code> is accessible
+     * 判断Member是否可访问，即是否存在public修饰符
+     *
+     * @param m
+     * @return boolean
      */
-    static boolean isAccessible(final Member m) {
+    private static boolean isAccessible(final Member m) {
         return m != null && Modifier.isPublic(m.getModifiers()) && !m.isSynthetic();
     }
     
     /**
-     * Learn whether the specified class is generally accessible, i.e. is
-     * declared in an entirely {@code public} manner.
-     * @param type to check
-     * @return {@code true} if {@code type} and any enclosing classes are
-     *         {@code public}.
+     * 判断Class是否可访问的
+     *
+     * @param type
+     * @return boolean
      */
     private static boolean isAccessible(final Class<?> type) {
         Class<?> cls = type;
@@ -31,65 +64,52 @@ public class ReflectUtils {
             if (!Modifier.isPublic(cls.getModifiers())) {
                 return false;
             }
+            // 获取它的外部类
             cls = cls.getEnclosingClass();
         }
         return true;
     }
     
     /**
-     * Returns whether a given set of modifiers implies package access.
-     * @param modifiers to test
-     * @return {@code true} unless {@code package}/{@code protected}/{@code private} modifier detected
+     * 判断modifiers是否为包访问范围
+     *
+     * @param modifiers
+     * @return boolean
      */
-    static boolean isPackageAccess(final int modifiers) {
+    private static boolean isPackageAccess(final int modifiers) {
         return (modifiers & ACCESS_TEST) == 0;
     }
-    
+
     /**
-     * XXX 默认访问父类的方法.
+     * 将成员是public范围、成员所在类是默认范围的成员设置为反射可访问
      *
-     * When a {@code public} class has a default access superclass with {@code public} members,
-     * these members are accessible. Calling them from compiled code works fine.
-     * Unfortunately, on some JVMs, using reflection to invoke these members
-     * seems to (wrongly) prevent access even when the modifier is {@code public}.
-     * Calling {@code setAccessible(true)} solves the problem but will only work from
-     * sufficiently privileged code. Better workarounds would be gratefully
-     * accepted.
-     * @param o the AccessibleObject to set as accessible
-     * @return a boolean indicating whether the accessibility of the object was set to true.
+     * @param o
+     * @return boolean
      */
-    static boolean setAccessibleWorkaround(final AccessibleObject o) {
+    private static boolean setAccessibleWorkaround(final AccessibleObject o) {
         if (o == null || o.isAccessible()) {
             return false;
         }
         final Member m = (Member) o;
+        // 将反射不可访问的、成员是public范围、成员所在类是默认范围 设置为反射可访问
         if (!o.isAccessible() && Modifier.isPublic(m.getModifiers()) && isPackageAccess(m.getDeclaringClass().getModifiers())) {
             try {
                 o.setAccessible(true);
                 return true;
-            } catch (final SecurityException e) { // NOPMD
-                // ignore in favor of subsequent IllegalAccessException
+            } catch (final SecurityException e) {
             }
         }
         return false;
     }
-	
-    //----------------------Field
+
 	/**
-     * 得到一个可访问的 {@link Field} 通过名字, 根据需要可以突破访问范围. 只考虑这个指定的类
-     * 
-     * @param cls
-     *            the {@link Class} to reflect, must not be {@code null}
-     * @param fieldName
-     *            the field name to obtain
-     * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
-     * @return the Field object
-     * @throws IllegalArgumentException
-     *             if the class is {@code null}, or the field name is blank or empty
-     */
+	 * 通过名字得到一个可访问的 {@link Field}, 根据需要可以突破访问范围. 只考虑这个指定的类
+	 *
+	 * @param cls
+	 * @param fieldName
+	 * @param forceAccess
+	 * @return java.lang.reflect.Field
+	 */
     public static Field getDeclaredField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         if(cls==null) {
         	throw new IllegalArgumentException(String.format("The class must not be null"));
@@ -99,7 +119,6 @@ public class ReflectUtils {
         }
         
         try {
-            // only consider the specified class by using getDeclaredField()
             final Field field = cls.getDeclaredField(fieldName);
             if (!isAccessible(field)) {
                 if (forceAccess) {
@@ -109,27 +128,18 @@ public class ReflectUtils {
                 }
             }
             return field;
-        } catch (final NoSuchFieldException e) { // NOPMD
-            // ignore
+        } catch (final NoSuchFieldException e) {
         }
         return null;
     }
     
     /**
-     * 获取一个可访问 {@link Field} 通过明珠, 根据请求是否突破访问范围. 包括Superclasses和interfaces
-     * 
+     * 通过名字获取一个可访问 {@link Field} , 根据请求是否突破访问范围. 包括Superclasses和interfaces
+     *
      * @param cls
-     *            the {@link Class} to reflect, must not be {@code null}
      * @param fieldName
-     *            the field name to obtain
      * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
-     * @return the Field object
-     * @throws IllegalArgumentException
-     *             if the class is {@code null}, or the field name is blank or empty or is matched at multiple places
-     *             in the inheritance hierarchy
+     * @return java.lang.reflect.Field
      */
     public static Field getField(final Class<?> cls, final String fieldName, final boolean forceAccess) {
         if(cls==null) {
@@ -138,26 +148,9 @@ public class ReflectUtils {
         if(StringUtils.isBlank(fieldName)) {
         	throw new IllegalArgumentException(String.format("The field name must not be blank/empty"));
         }
-        // FIXME is this workaround still needed? lang requires Java 6
-        // Sun Java 1.3 has a bugged implementation of getField hence we write the
-        // code ourselves
-
-        // getField() will return the Field object with the declaring class
-        // set correctly to the class that declares the field. Thus requesting the
-        // field on a subclass will return the field from the superclass.
-        //
-        // priority order for lookup:
-        // searchclass private/protected/package/public
-        // superclass protected/package/public
-        // private/different package blocks access to further superclasses
-        // implementedinterface public
-
-        // check up the superclass hierarchy
         for (Class<?> acls = cls; acls != null; acls = acls.getSuperclass()) {
             try {
                 final Field field = acls.getDeclaredField(fieldName);
-                // getDeclaredField checks for non-public scopes as well
-                // and it returns accurate results
                 if (!Modifier.isPublic(field.getModifiers())) {
                     if (forceAccess) {
                         field.setAccessible(true);
@@ -166,13 +159,10 @@ public class ReflectUtils {
                     }
                 }
                 return field;
-            } catch (final NoSuchFieldException ex) { // NOPMD
-                // ignore
+            } catch (final NoSuchFieldException ex) {
             }
         }
-        // check the public interface case. This must be manually searched for
-        // incase there is a public supersuperclass field hidden by a private/package
-        // superclass field.
+
         Field match = null;
         for (final Class<?> class1 : ClassUtils.getAllInterfaces(cls)) {
             try {
@@ -181,8 +171,7 @@ public class ReflectUtils {
                     throw new IllegalArgumentException(String.format("Reference to field %s is ambiguous relative to %s; a matching field exists on two or more implemented interfaces.", fieldName, cls));
                 }
                 match = test;
-            } catch (final NoSuchFieldException ex) { // NOPMD
-                // ignore
+            } catch (final NoSuchFieldException ex) {
             }
         }
         return match;
@@ -190,15 +179,11 @@ public class ReflectUtils {
     
     /**
      * 获取当前类及其父类的所有的 fields
-     * 
+     *
      * @param cls
-     *            the {@link Class} to query
-     * @return an array of Fields (possibly empty).
-     * @throws IllegalArgumentException
-     *             if the class is {@code null}
-     * @since 3.2
+     * @return java.util.List<java.lang.reflect.Field>
      */
-    public static List<Field> getAllFieldsList(final Class<?> cls) {
+    public static List<Field> getAllFields(final Class<?> cls) {
         if(cls==null) {
         	throw new IllegalArgumentException(String.format("The class must not be null"));
         }
@@ -215,21 +200,17 @@ public class ReflectUtils {
     }
     
     /**
-     * 获取当前类及其父类的所有的 fields that are annotated with the given annotation.
+     * 获取当前类及其父类的所有的带有特定注解的 fields
+     *
      * @param cls
-     *            the {@link Class} to query
      * @param annotationCls
-     *            the {@link Annotation} that must be present on a field to be matched
-     * @return a list of Fields (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
-     * @since 3.4
+     * @return java.util.List<java.lang.reflect.Field>
      */
-    public static List<Field> getFieldsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+    public static List<Field> getFieldsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         if(annotationCls==null) {
         	throw new IllegalArgumentException(String.format("The annotation class must not be null"));
         }
-        final List<Field> allFields = getAllFieldsList(cls);
+        final List<Field> allFields = getAllFields(cls);
         final List<Field> annotatedFields = new ArrayList<Field>();
         for (final Field field : allFields) {
             if (field.getAnnotation(annotationCls) != null) {
@@ -241,25 +222,22 @@ public class ReflectUtils {
     
     
     /**
-     * Reads a {@link Field}.
-     * 
+     * 获取指定对象的指定字段的值，可突破访问范围，指定对象为null时查询的是静态字段
+     *
      * @param field
-     *            the field to use
      * @param target
-     *            the object to call on, may be {@code null} for {@code static} fields
      * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method.
-     * @return the field value
-     * @throws IllegalArgumentException
-     *             if the field is {@code null}
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
+     * @return java.lang.Object
      */
-    public static Object readField(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
+    public static Object getFieldValue(final Field field, final Object target, final boolean forceAccess) throws IllegalAccessException {
         if(field==null) {
         	throw new IllegalArgumentException(String.format("The field must not be null"));
         }
+
+        if(target == null && !Modifier.isStatic(field.getModifiers())) {
+            throw new IllegalArgumentException(String.format("The field '%s' is not static",field.getName()));
+        }
+
         if (forceAccess && !field.isAccessible()) {
             field.setAccessible(true);
         } else {
@@ -269,79 +247,25 @@ public class ReflectUtils {
     }
     
     /**
-     * Reads a static {@link Field}.
-     * 
+     * 设置指定对象的指定字段的值，可突破访问范围，指定对象为null时查询的是静态字段
+     *
      * @param field
-     *            to read
-     * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method.
-     * @return the field value
-     * @throws IllegalArgumentException
-     *             if the field is {@code null} or not {@code static}
-     * @throws IllegalAccessException
-     *             if the field is not made accessible
-     */
-    public static Object readStaticField(final Field field, final boolean forceAccess) throws IllegalAccessException {
-        if(field==null) {
-        	throw new IllegalArgumentException(String.format("The field must not be null"));
-        }
-        if(!Modifier.isStatic(field.getModifiers())) {
-        	throw new IllegalArgumentException(String.format("The field '%s' is not static",field.getName()));
-        }
-        return readField(field, (Object) null, forceAccess);
-    }
-    
-    /**
-     * Writes a static {@link Field}.
-     * 
-     * @param field
-     *            to write
-     * @param value
-     *            to set
-     * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
-     * @throws IllegalArgumentException
-     *             if the field is {@code null} or not {@code static}, or {@code value} is not assignable
-     * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}
-     */
-    public static void writeStaticField(final Field field, final Object value, final boolean forceAccess) throws IllegalAccessException {
-        if(field==null) {
-        	throw new IllegalArgumentException(String.format("The field must not be null"));
-        }
-        if(!Modifier.isStatic(field.getModifiers())) {
-        	throw new IllegalArgumentException(String.format("The field %s.%s is not static",field.getDeclaringClass().getName(),
-                    field.getName()));
-        }
-        writeField(field, (Object) null, value, forceAccess);
-    }
-    
-    /**
-     * Writes a {@link Field}.
-     * 
-     * @param field
-     *            to write
      * @param target
-     *            the object to call on, may be {@code null} for {@code static} fields
      * @param value
-     *            to set
      * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
-     * @throws IllegalArgumentException
-     *             if the field is {@code null} or {@code value} is not assignable
-     * @throws IllegalAccessException
-     *             if the field is not made accessible or is {@code final}
+     * @return void
      */
-    public static void writeField(final Field field, final Object target, final Object value, final boolean forceAccess)
+    public static void setFieldValue(final Field field, final Object target, final Object value, final boolean forceAccess)
             throws IllegalAccessException {
         if(field==null) {
         	throw new IllegalArgumentException(String.format("The field must not be null"));
         }
+
+        if(target == null && !Modifier.isStatic(field.getModifiers())) {
+            throw new IllegalArgumentException(String.format("The field %s.%s is not static",field.getDeclaringClass().getName(),
+                    field.getName()));
+        }
+
         if (forceAccess && !field.isAccessible()) {
             field.setAccessible(true);
         } else {
@@ -351,17 +275,11 @@ public class ReflectUtils {
     }
     
     /**
-     * Removes the final modifier from a {@link Field}.
-     * 
+     * 删除字段的Final修饰符
+     *
      * @param field
-     *            to remove the final modifier
      * @param forceAccess
-     *            whether to break scope restrictions using the
-     *            {@link AccessibleObject#setAccessible(boolean)} method. {@code false} will only
-     *            match {@code public} fields.
-     * @throws IllegalArgumentException
-     *             if the field is {@code null}
-     * @since 3.3
+     * @return void
      */
     public static void removeFinalModifier(final Field field, final boolean forceAccess) {
         if(field==null) {
@@ -385,112 +303,50 @@ public class ReflectUtils {
                 }
             }
         } catch (final NoSuchFieldException ignored) {
-            // The field class contains always a modifiers field
         } catch (final IllegalAccessException ignored) {
-            // The modifiers field is made accessible
         }
     }
-    
-    
-    //--------------Constructor
+
     /**
-     * <p>Finds a constructor given a class and signature, checking accessibility.</p>
-     * 
-     * <p>This finds the constructor and ensures that it is accessible.
-     * The constructor signature must match the parameter types exactly.</p>
+     * 获取一个可访问的构造器
      *
-     * @param <T> the constructor type
-     * @param cls the class to find a constructor for, not {@code null}
-     * @param parameterTypes the array of parameter types, {@code null} treated as empty
-     * @return the constructor, {@code null} if no matching accessible constructor found
-     * @see Class#getConstructor
-     * @see #getAccessibleConstructor(Constructor)
-     * @throws NullPointerException if {@code cls} is {@code null}
+     * @param cls
+     * @param parameterTypes
+     * @return java.lang.reflect.Constructor<T>
      */
     public static <T> Constructor<T> getAccessibleConstructor(final Class<T> cls,
             final Class<?>... parameterTypes) {
         if(cls==null) {
         	throw new IllegalArgumentException(String.format("class cannot be null"));
         }
-        
+
+        Constructor ctor = null;
         try {
-            return getAccessibleConstructor(cls.getConstructor(parameterTypes));
-        } catch (final NoSuchMethodException e) {
+            ctor = cls.getConstructor(parameterTypes);
+            return ctor!=null && isAccessible(ctor)
+                    && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
+        } catch (NoSuchMethodException e) {
             return null;
         }
     }
 
     /**
-     * <p>Checks if the specified constructor is accessible.</p>
-     * 
-     * <p>This simply ensures that the constructor is accessible.</p>
+     * 执行class的构造器，根据参数匹配
      *
-     * @param <T> the constructor type
-     * @param ctor  the prototype constructor object, not {@code null}
-     * @return the constructor, {@code null} if no matching accessible constructor found
-     * @see SecurityManager
-     * @throws NullPointerException if {@code ctor} is {@code null}
+     * @param cls
+     * @param args
+     * @return T
      */
-    public static <T> Constructor<T> getAccessibleConstructor(final Constructor<T> ctor) {
-        if(ctor==null) {
-        	throw new IllegalArgumentException(String.format("constructor cannot be null"));
-        }
-        return isAccessible(ctor)
-                && isAccessible(ctor.getDeclaringClass()) ? ctor : null;
-    }
-    
-    /**
-     * <p>Returns a new instance of the specified class inferring the right constructor
-     * from the types of the arguments.</p>
-     *
-     * <p>This locates and calls a constructor.
-     * The constructor signature must match the argument types exactly.</p>
-     *
-     * @param <T> the type to be constructed
-     * @param cls the class to be constructed, not {@code null}
-     * @param args the array of arguments, {@code null} treated as empty
-     * @return new instance of {@code cls}, not {@code null}
-     *
-     * @throws NullPointerException if {@code cls} is {@code null}
-     * @throws NoSuchMethodException if a matching constructor cannot be found
-     * @throws IllegalAccessException if invocation is not permitted by security
-     * @throws InvocationTargetException if an error occurs on invocation
-     * @throws InstantiationException if an error occurs on instantiation
-     * @see #invokeExactConstructor(Class, Object[], Class[])
-     */
-//    public static <T> T invokeExactConstructor(final Class<T> cls, Object... args)
-//            throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-//            InstantiationException {
-//        args = ArrayUtils.nullToEmpty(args);
-//        final Class<?> parameterTypes[] = ClassUtils.toClass(args);
-//        return invokeExactConstructor(cls, args, parameterTypes);
-//    }
-
-    /**
-     * <p>Returns a new instance of the specified class choosing the right constructor
-     * from the list of parameter types.</p>
-     *
-     * <p>This locates and calls a constructor.
-     * The constructor signature must match the parameter types exactly.</p>
-     *
-     * @param <T> the type to be constructed
-     * @param cls the class to be constructed, not {@code null}
-     * @param args the array of arguments, {@code null} treated as empty
-     * @param parameterTypes  the array of parameter types, {@code null} treated as empty
-     * @return new instance of <code>cls</code>, not {@code null}
-     *
-     * @throws NullPointerException if {@code cls} is {@code null}
-     * @throws NoSuchMethodException if a matching constructor cannot be found
-     * @throws IllegalAccessException if invocation is not permitted by security
-     * @throws InvocationTargetException if an error occurs on invocation
-     * @throws InstantiationException if an error occurs on instantiation
-     * @see Constructor#newInstance
-     */
-    public static <T> T invokeExactConstructor(final Class<T> cls, Object[] args,
-            Class<?>[] parameterTypes) throws NoSuchMethodException, IllegalAccessException,
+    public static <T> T invokeConstructor(final Class<T> cls, Object... args) throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException, InstantiationException {
         args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        Class<?> parameterTypes[] = new Class[0];
+        if (args.length != 0) {
+            final Class<?>[] classes = new Class[args.length];
+            for (int i = 0; i < args.length; i++) {
+                classes[i] = args[i] == null ? null : args[i].getClass();
+            }
+        }
         final Constructor<T> ctor = getAccessibleConstructor(cls, parameterTypes);
         if (ctor == null) {
             throw new NoSuchMethodException(
@@ -498,60 +354,41 @@ public class ReflectUtils {
         }
         return ctor.newInstance(args);
     }
-    
-    //-------------------method
+
     /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
-     * reflection) with given name and parameters. If no such method
-     * can be found, return {@code null}.
-     * This is just a convenience wrapper for
-     * {@link #getAccessibleMethod(Method)}.</p>
+     * 获取可访问的方法
      *
-     * @param cls get method from this class
-     * @param methodName get method with this name
-     * @param parameterTypes with these parameters types
-     * @return The accessible method
+     * @param cls
+     * @param methodName
+     * @param parameterTypes
+     * @return java.lang.reflect.Method
      */
     public static Method getAccessibleMethod(final Class<?> cls, final String methodName,
             final Class<?>... parameterTypes) {
         try {
-            return getAccessibleMethod(cls.getMethod(methodName,
-                    parameterTypes));
-        } catch (final NoSuchMethodException e) {
-            return null;
-        }
-    }
-    /**
-     * <p>Returns an accessible method (that is, one that can be invoked via
-     * reflection) that implements the specified Method. If no such method
-     * can be found, return {@code null}.</p>
-     *
-     * @param method The method that we wish to call
-     * @return The accessible method
-     */
-    public static Method getAccessibleMethod(Method method) {
-        if (!isAccessible(method)) {
-            return null;
-        }
-        // If the declaring class is public, we are done
-        final Class<?> cls = method.getDeclaringClass();
-        if (Modifier.isPublic(cls.getModifiers())) {
-            return method;
-        }
-        final String methodName = method.getName();
-        final Class<?>[] parameterTypes = method.getParameterTypes();
-
-        // Check the implemented interfaces and subinterfaces
-        method = getAccessibleMethodFromInterfaceNest(cls, methodName,
-                parameterTypes);
-
-        // Check the superclass chain
-        if (method == null) {
-            method = getAccessibleMethodFromSuperclass(cls, methodName,
+            Method method = cls.getMethod(methodName,
                     parameterTypes);
+            if (!isAccessible(method)) {
+                return null;
+            }
+            if (Modifier.isPublic(cls.getModifiers())) {
+                return method;
+            }
+            // Check the implemented interfaces and subinterfaces
+            method = getAccessibleMethodFromInterfaceNest(cls, methodName,
+                    parameterTypes);
+
+            // Check the superclass chain
+            if (method == null) {
+                method = getAccessibleMethodFromSuperclass(cls, methodName,
+                        parameterTypes);
+            }
+            return method;
+        } catch (NoSuchMethodException e) {
+            return null;
         }
-        return method;
     }
+
     /**
      * <p>Returns an accessible method (that is, one that can be invoked via
      * reflection) by scanning through the superclasses. If no such method
@@ -627,33 +464,13 @@ public class ReflectUtils {
     }
 
     /**
-     * Gets all methods of the given class that are annotated with the given annotation.
+     * 获取带有指定注解的方法
+     *
      * @param cls
-     *            the {@link Class} to query
      * @param annotationCls
-     *            the {@link Annotation} that must be present on a method to be matched
-     * @return an array of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
-     * @since 3.4
+     * @return java.util.List<java.lang.reflect.Method>
      */
-    public static Method[] getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
-        final List<Method> annotatedMethodsList = getMethodsListWithAnnotation(cls, annotationCls);
-        return annotatedMethodsList.toArray(new Method[annotatedMethodsList.size()]);
-    }
-
-    /**
-     * Gets all methods of the given class that are annotated with the given annotation.
-     * @param cls
-     *            the {@link Class} to query
-     * @param annotationCls
-     *            the {@link Annotation} that must be present on a method to be matched
-     * @return a list of Methods (possibly empty).
-     * @throws IllegalArgumentException
-     *            if the class or annotation are {@code null}
-     * @since 3.4
-     */
-    public static List<Method> getMethodsListWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
+    public static List<Method> getMethodsWithAnnotation(final Class<?> cls, final Class<? extends Annotation> annotationCls) {
         if(cls==null) {
         	throw new IllegalArgumentException(String.format("The class must not be null"));
         }
@@ -669,78 +486,26 @@ public class ReflectUtils {
         }
         return annotatedMethods;
     }
+
     /**
-     * <p>Invokes a method whose parameter types match exactly the object
-     * types.</p>
+     * 执行指定方法
      *
-     * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @return The value returned by the invoked method
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     *
-     * @since 3.4
+     * @param object
+     * @param methodName
+     * @param args
+     * @return java.lang.Object
      */
-    public static Object invokeExactMethod(final Object object, final String methodName) throws NoSuchMethodException,
-            IllegalAccessException, InvocationTargetException {
-        return invokeExactMethod(object, methodName, ArrayUtils.EMPTY_OBJECT_ARRAY, null);
-    }
-    /**
-     * <p>Invokes a method with no parameters.</p>
-     *
-     * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod}(Class,String,Class[])}.</p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @return The value returned by the invoked method
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     */
-//    public static Object invokeExactMethod(final Object object, final String methodName,
-//            Object... args) throws NoSuchMethodException,
-//            IllegalAccessException, InvocationTargetException {
-//        args = ArrayUtils.nullToEmpty(args);
-//        final Class<?>[] parameterTypes = ClassUtils.toClass(args);
-//        return invokeExactMethod(object, methodName, args, parameterTypes);
-//    }
-    /**
-     * <p>Invokes a method whose parameter types match exactly the parameter
-     * types given.</p>
-     *
-     * <p>This uses reflection to invoke the method obtained from a call to
-     * {@link #getAccessibleMethod(Class,String,Class[])}.</p>
-     *
-     * @param object invoke method on this object
-     * @param methodName get method with this name
-     * @param args use these arguments - treat null as empty array
-     * @param parameterTypes match these parameters - treat {@code null} as empty array
-     * @return The value returned by the invoked method
-     *
-     * @throws NoSuchMethodException if there is no such accessible method
-     * @throws InvocationTargetException wraps an exception thrown by the
-     *  method invoked
-     * @throws IllegalAccessException if the requested method is not accessible
-     *  via reflection
-     */
-    public static Object invokeExactMethod(final Object object, final String methodName,
-            Object[] args, Class<?>[] parameterTypes)
+    public static Object invokeMethod(final Object object, final String methodName, Object... args)
             throws NoSuchMethodException, IllegalAccessException,
             InvocationTargetException {
         args = ArrayUtils.nullToEmpty(args);
-        parameterTypes = ArrayUtils.nullToEmpty(parameterTypes);
+        Class<?> parameterTypes[] = new Class[0];
+        if (args.length != 0) {
+            final Class<?>[] classes = new Class[args.length];
+            for (int i = 0; i < args.length; i++) {
+                classes[i] = args[i] == null ? null : args[i].getClass();
+            }
+        }
         final Method method = getAccessibleMethod(object.getClass(), methodName,
                 parameterTypes);
         if (method == null) {

@@ -1,4 +1,4 @@
-package com.liwy.commons.lang;
+package com.liwy.commons.lang.codec;
 
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
@@ -16,6 +16,75 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <p>常用编解码工具类</p>
+ *
+ * <ul>
+ *  <li><b>md5</b>
+ *      - MD5摘要</li>
+ *  <li><b>sha1</b>
+ *      - SHA-1摘要</li>
+ *  <li><b>sha256</b>
+ *      - SHA-256摘要</li>
+ *  <li><b>sha384</b>
+ *      - SHA-384摘要</li>
+ *  <li><b>sha512</b>
+ *      - SHA-512摘要</li>
+ *  <li><b>hmacMd5</b>
+ *      - HMAC-MD5加密</li>
+ *  <li><b>hmacSha1</b>
+ *      - HMAC-SHA1加密</li>
+ *  <li><b>hmacSha256</b>
+ *      - HMAC-SHA256加密</li>
+ *  <li><b>hmacSha384</b>
+ *      - HMAC-SHA384加密</li>
+ *  <li><b>hmacSha512</b>
+ *      - HMAC-SHA512加密</li>
+ *
+ *  <li><b>encodeHex</b>
+ *      - Hex对称加密</li>
+ *  <li><b>decodeHex</b>
+ *      - Hex对称解密</li>
+ *  <li><b>encodeBase64</b>
+ *      - base64对称加密</li>
+ *  <li><b>decodeBase64</b>
+ *      - base64对称解密</li>
+ *  <li><b>encodeBase64BySun</b>
+ *      - base64对称加密 -sun.misc提供</li>
+ *  <li><b>decodeBase64BySun</b>
+ *      - base64对称加解密-sun.misc提供</li>
+ *  <li><b>getDesKey</b>
+ *      - 获取DES密钥</li>
+ *  <li><b>encodeDES</b>
+ *      - 通过DES密钥，进行DES加密</li>
+ *  <li><b>decodeDES</b>
+ *      - 通过DES密钥，进行DES解密</li>
+ *  <li><b>getAesKey</b>
+ *      - 获取AES密钥</li>
+ *  <li><b>encodeAES</b>
+ *      - 通过AES密钥，进行AES加密</li>
+ *  <li><b>decodeAES</b>
+ *      - 通过AES密钥，进行AES解密</li>
+ *
+ *  <li><b>getRsaKey</b>
+ *      - 获取RSA的公有密钥和私有密钥</li>
+ *  <li><b>getRsaSign</b>
+ *      - 用私钥对加密信息生成数字签名</li>
+ *  <li><b>verifyRsaSign</b>
+ *      - 校验数字签名</li>
+ *  <li><b>encryptRsaByPrivateKey</b>
+ *      - 用私钥加密</li>
+ *  <li><b>decryptRsaByPublicKey</b>
+ *      - 用公钥解密</li>
+ *  <li><b>encryptRsaByPublicKey</b>
+ *      - 用公钥加密</li>
+ *  <li><b>decryptRsaByPrivateKey</b>
+ *      - 用私钥解密</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
+ */
 public class CodecUtils {
 	
 	private static final char[] DIGITS =

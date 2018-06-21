@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>常用Class工具类</p>
+ * <p>常用JavaBean工具类</p>
  *
  * <ul>
  *  <li><b>mapToBean</b>
