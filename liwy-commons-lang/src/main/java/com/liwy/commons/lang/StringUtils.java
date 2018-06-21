@@ -29,6 +29,14 @@ import java.util.regex.Pattern;
  *      - 改变字符串中半角字符为全角字符</li>
  *  <li><b>full2Half</b>
  *      - 改变字符串中全角字符为半角字符</li>
+ *  <li><b>toPrintString</b>
+ *      - 将对象转换为可读的字符串</li>
+ *  <li><b>toUnderlineCase</b>
+ *      - 将驼峰式命名的字符串转换为下划线方式</li>
+ *  <li><b>toSymbolCase</b>
+ *      - 将驼峰式命名的字符串转换为使用符号连接方式</li>
+ *  <li><b>toCamelCase</b>
+ *      - 将下划线方式命名的字符串转换为驼峰式</li>
  * </ul>
  * 
  * <p>{@code StringUtils}类型定义与字符串处理相关的某些单词。</p>
@@ -40,18 +48,6 @@ import java.util.regex.Pattern;
  *  <li>whitespace - 定义的字符 {@link Character#isWhitespace(char)}</li>
  *  <li>trim - the characters &lt;= 32 as in {@link String#trim()}</li>
  * </ul>
- * 
- * <p>{@code StringUtils} handles {@code null} input Strings quietly.
- * 也就是说 {@code null} input will return {@code null}.
- * Where a {@code boolean} or {@code int} is being returned
- * details vary by method.</p>
- *
- * <p>A side effect of the {@code null} handling is that a
- * {@code NullPointerException} should be considered a bug in
- * {@code StringUtils}.</p>
- *
- * <p>方法在这个类中给出示例代码来解释它们的操作。
- * 符号 {@code *} 用于指示任何输入，包括 {@code null}.</p>
  *
  * <p>#线程安全的#</p>
  * 
@@ -64,6 +60,7 @@ public class StringUtils {
 	 * @since 2.0
 	 */
 	public static final String EMPTY = "";
+	public static final String UNDERLINE = "_";
 	
 	private static final char[] HEX_DIGITS = new char[] {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
 	
@@ -512,11 +509,6 @@ public class StringUtils {
 		buffer.append(value);//如果要打印对象，请重新该对象的toPrintString方法
 	}
 
-
-
-
-
-	public static final String UNDERLINE = "_";
 	/**
 	 * 将驼峰式命名的字符串转换为下划线方式。如果转换前的驼峰式命名的字符串为空，则返回空字符串。<br>
 	 * 例如：
