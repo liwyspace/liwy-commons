@@ -36,15 +36,15 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 ### liwy-commons-lang
 
 * `StringUtils` - 字符串工具
-* `RandomUtils` - 随机工具
+* `RandomUtils v1.0.1` - 随机工具
 * `EnumUtils v1.0.1` - 枚举工具
-* `SystemUtils` - 系统参数工具
+* `SystemUtils v1.0.1` - 系统参数工具
 * `ExceptionUtils v1.0.1` - 异常工具
 * `BeanUtils v1.0.1` - Bean工具
 * `ClassUtils v1.0.1` - Class工具
 * `ReflectUtils v1.0.1` - 反射工具
 * `JsonUtils` - JSON工具
-* `PropertiesUtils` - Properties工具
+* `PropertiesUtils v1.0.1` - Properties工具
 * `AntPathMatcher v1.0.1` - Ant风格Path匹配工具
 * algorithms 算法包
     * `SortUtils` - 排序算法

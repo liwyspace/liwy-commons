@@ -1,12 +1,71 @@
 package com.liwy.commons.lang;
 
+import jodd.io.StreamUtil;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringReader;
+import java.util.Properties;
+
 /**
- * <b>模块：</b> <br/>
- * <b>名称：</b> <br/>
- * <b>描述：</b> <br/>
- * <b>作者：</b> wenyao02.li <br/>
- * <b>创建时间：</b> 2018/6/7 16:41 <br/>
- * <b>版本：</b> V1.0 <br/>
+ * <p>常用Properties工具类</p>
+ *
+ * <ul>
+ *  <li><b>loadFromFile</b>
+ *      - 从文件路径加载properties</li>
+ *  <li><b>loadFromString</b>
+ *      - 从字符串内容加载Properties</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class PropertiesUtils {
+    /**
+     * 从文件路径加载properties. 默认使用utf-8编码解析文件
+     */
+    public static Properties loadFromFile(String generalPath) {
+        Properties p = new Properties();
+        try {
+            Reader reader = new InputStreamReader(new FileInputStream(generalPath), "UTF-8");
+            p.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    /**
+     * 从字符串内容加载Properties
+     */
+    public static Properties loadFromString(String content) {
+        Properties p = new Properties();
+        try {
+            Reader reader = new StringReader(content);
+            p.load(reader);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return p;
+    }
+
+    /**
+     * 写入文件
+     *
+     * @param p
+     * @param file
+     * @return void
+     */
+    public static void writeToFile(final Properties p, final String file){
+        try {
+            p.store(new FileOutputStream(file), null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

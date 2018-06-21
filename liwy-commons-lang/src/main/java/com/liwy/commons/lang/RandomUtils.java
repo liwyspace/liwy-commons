@@ -1,14 +1,38 @@
 package com.liwy.commons.lang;
 
 import java.util.Random;
+import java.util.UUID;
 
 /**
- * <p>随机工具</p>
- * 
- * 
- * 
+ * <p>常用随机生成工具类</p>
+ *
+ * <ul>
+ *  <li><b>nextBoolean</b>
+ *      - 返回随机的布尔值</li>
+ *  <li><b>nextBytes</b>
+ *      - 创建随机字节数组</li>
+ *  <li><b>nextInt</b>
+ *      - 返回随机整数</li>
+ *  <li><b>nextLong</b>
+ *      - 随机的long型</li>
+ *  <li><b>nextDouble</b>
+ *      - 随机的double型</li>
+ *  <li><b>nextFloat</b>
+ *      - 随机的浮点类型</li>
+ *  <li><b>random</b>
+ *      - 随机的字符串</li>
+ *  <li><b>randomAscii</b>
+ *      - 随机ascii打印码字符串</li>
+ *  <li><b>randomAlphabetic</b>
+ *      - 随机字母串</li>
+ *  <li><b>randomNumeric</b>
+ *      - 随机数字串</li>
+ *  <li><b>randomUUID</b>
+ *      - 生成UUID</li>
+ * </ul>
+ *
  * @author liwy
- * @version 1.0
+ * @version v1.0.1
  */
 public class RandomUtils {
 	
@@ -419,5 +443,15 @@ public class RandomUtils {
 		}
 		return new String(buffer);
 	}
+
+	/**
+	 * 生成UUID
+	 *
+	 * @param
+	 * @return java.lang.String
+	 */
+    public static String randomUUID() {
+        return UUID.randomUUID().toString();
+    }
     
 }

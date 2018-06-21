@@ -1,9 +1,34 @@
 package com.liwy.commons.lang;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.List;
+import java.util.Properties;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
- * 系统参数工具类
- * @author liwy-psbc
+ * <p>常用系统参数工具类</p>
  *
+ * <ul>
+ *  <li>标准系统信息</li>
+ *  <li>判断是否指定Java版本</li>
+ *  <li>判断是否指定系统版本</li>
+ *  <li><b>getHostName</b>
+ *      - 获取HostName</li>
+ *  <li><b>getInetAddress</b>
+ *      - 获取系统地址信息</li>
+ *  <li><b>getProperty</b>
+ *      - 查看指定系统变量（-D）</li>
+ *  <li><b>getEnv</b>
+ *      - 查看指定环境变量</li>
+ *  <li><b>getPropertyFromAll</b>
+ *      - 从系统变量与环境变量中查找，系统变量优先</li>
+ *  <li><b>registerSysPropertiesListener</b>
+ *      - 注册系统变量监听</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class SystemUtils {
 	/**
@@ -221,4 +246,260 @@ public class SystemUtils {
 	 * 可选包扩展地址
 	 */
 	public static final String JAVA_EXT_DIRS = System.getProperty("java.ext.dirs");
+
+	//-----------------------> JDK版本
+
+	public static final boolean IS_JAVA_1_1 = isMatchJavaVersion("1.1");
+	public static final boolean IS_JAVA_1_2 = isMatchJavaVersion("1.2");
+	public static final boolean IS_JAVA_1_3 = isMatchJavaVersion("1.3");
+	public static final boolean IS_JAVA_1_4 = isMatchJavaVersion("1.4");
+	public static final boolean IS_JAVA_1_5 = isMatchJavaVersion("1.5");
+	public static final boolean IS_JAVA_1_6 = isMatchJavaVersion("1.6");
+	public static final boolean IS_JAVA_1_7 = isMatchJavaVersion("1.7");
+	public static final boolean IS_JAVA_1_8 = isMatchJavaVersion("1.8");
+	public static final boolean IS_JAVA_9 = isMatchJavaVersion("9");
+	public static final boolean IS_JAVA_10 = isMatchJavaVersion("10");
+	public static final boolean IS_JAVA_11 = isMatchJavaVersion("11");
+
+	//-----------------------> 操作系统版本
+
+	public static final boolean IS_OS_AIX = isMatchOs("AIX");
+	public static final boolean IS_OS_HP_UX = isMatchOs("HP-UX");
+	// IBM OS/400.
+	public static final boolean IS_OS_400 = isMatchOs("OS/400");
+	public static final boolean IS_OS_IRIX = isMatchOs("Irix");
+	public static final boolean IS_OS_LINUX = isMatchOs("Linux") || isMatchOs("LINUX");
+
+	public static final boolean IS_OS_MAC = isMatchOs("Mac");
+	public static final boolean IS_OS_MAC_OSX = isMatchOs("Mac OS X");
+	// Mac OS X Cheetah.
+	public static final boolean IS_OS_MAC_OSX_CHEETAH = isMatchOsVersion("Mac OS X", "10.0");
+	// Mac OS X Puma.
+	public static final boolean IS_OS_MAC_OSX_PUMA = isMatchOsVersion("Mac OS X", "10.1");
+	// Mac OS X Jaguar.
+	public static final boolean IS_OS_MAC_OSX_JAGUAR = isMatchOsVersion("Mac OS X", "10.2");
+	// Mac OS X Panther.
+	public static final boolean IS_OS_MAC_OSX_PANTHER = isMatchOsVersion("Mac OS X", "10.3");
+	// Mac OS X Tiger.
+	public static final boolean IS_OS_MAC_OSX_TIGER = isMatchOsVersion("Mac OS X", "10.4");
+	// Mac OS X Leopard.
+	public static final boolean IS_OS_MAC_OSX_LEOPARD = isMatchOsVersion("Mac OS X", "10.5");
+	// Mac OS X Snow Leopard.
+	public static final boolean IS_OS_MAC_OSX_SNOW_LEOPARD = isMatchOsVersion("Mac OS X", "10.6");
+	// Mac OS X Lion.
+	public static final boolean IS_OS_MAC_OSX_LION = isMatchOsVersion("Mac OS X", "10.7");
+	// Mac OS X Mountain Lion.
+	public static final boolean IS_OS_MAC_OSX_MOUNTAIN_LION = isMatchOsVersion("Mac OS X", "10.8");
+	// Mac OS X Mavericks.
+	public static final boolean IS_OS_MAC_OSX_MAVERICKS = isMatchOsVersion("Mac OS X", "10.9");
+	// Mac OS X Yosemite.
+	public static final boolean IS_OS_MAC_OSX_YOSEMITE = isMatchOsVersion("Mac OS X", "10.10");
+	// Mac OS X El Capitan.
+	public static final boolean IS_OS_MAC_OSX_EL_CAPITAN = isMatchOsVersion("Mac OS X", "10.11");
+
+	public static final boolean IS_OS_FREE_BSD = isMatchOs("FreeBSD");
+	public static final boolean IS_OS_OPEN_BSD = isMatchOs("OpenBSD");
+	public static final boolean IS_OS_NET_BSD = isMatchOs("NetBSD");
+	public static final boolean IS_OS_OS2 = isMatchOs("OS/2");
+	public static final boolean IS_OS_SOLARIS = isMatchOs("Solaris");
+	public static final boolean IS_OS_SUN_OS = isMatchOs("SunOS");
+
+	public static final boolean IS_OS_UNIX = IS_OS_AIX || IS_OS_HP_UX || IS_OS_IRIX || IS_OS_LINUX || IS_OS_MAC_OSX
+			|| IS_OS_SOLARIS || IS_OS_SUN_OS || IS_OS_FREE_BSD || IS_OS_OPEN_BSD || IS_OS_NET_BSD;
+
+	/**
+	 * 判断是否为Windows系统
+	 */
+	private static final String OS_NAME_WINDOWS_PREFIX = "Windows";
+	public static final boolean IS_OS_WINDOWS = isMatchOs(OS_NAME_WINDOWS_PREFIX);
+	public static final boolean IS_OS_WINDOWS_2000 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 2000");
+	public static final boolean IS_OS_WINDOWS_2003 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 2003");
+	public static final boolean IS_OS_WINDOWS_2008 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " Server 2008");
+	public static final boolean IS_OS_WINDOWS_2012 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " Server 2012");
+	public static final boolean IS_OS_WINDOWS_95 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 95");
+	public static final boolean IS_OS_WINDOWS_98 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 98");
+	public static final boolean IS_OS_WINDOWS_ME = isMatchOs(OS_NAME_WINDOWS_PREFIX + " Me");
+	public static final boolean IS_OS_WINDOWS_NT = isMatchOs(OS_NAME_WINDOWS_PREFIX + " NT");
+	public static final boolean IS_OS_WINDOWS_XP = isMatchOs(OS_NAME_WINDOWS_PREFIX + " XP");
+	public static final boolean IS_OS_WINDOWS_VISTA = isMatchOs(OS_NAME_WINDOWS_PREFIX + " Vista");
+	public static final boolean IS_OS_WINDOWS_7 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 7");
+	public static final boolean IS_OS_WINDOWS_8 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 8");
+	public static final boolean IS_OS_WINDOWS_10 = isMatchOs(OS_NAME_WINDOWS_PREFIX + " 10");
+
+	/**
+	 * 通过JDK版本前缀匹配
+	 *
+	 * @param versionPrefix
+	 * @return boolean
+	 */
+	private static boolean isMatchJavaVersion(final String versionPrefix) {
+		if (JAVA_SPECIFICATION_VERSION == null) {
+			return false;
+		}
+		return JAVA_SPECIFICATION_VERSION.startsWith(versionPrefix);
+	}
+
+	/**
+	 * 通过系统名称前缀匹配系统
+	 *
+	 * @param osNamePrefix
+	 * @return boolean
+	 */
+	private static boolean isMatchOs(final String osNamePrefix) {
+		if (StringUtils.isEmpty(OS_NAME)) {
+			return false;
+		}
+		return OS_NAME.startsWith(osNamePrefix);
+	}
+
+	/**
+	 * 通过系统名称前缀与版本匹配
+	 *
+	 * @param osNamePrefix
+	 * @param osVersionPrefix
+	 * @return boolean
+	 */
+	private static boolean isMatchOsVersion(final String osNamePrefix, final String osVersionPrefix) {
+		if(!isMatchOs(osNamePrefix)) {
+			return false;
+		}
+		if (StringUtils.isEmpty(OS_VERSION)) {
+			return false;
+		}
+		final String[] versionPrefixParts = osVersionPrefix.split("\\.");
+		final String[] versionParts = OS_VERSION.split("\\.");
+		for (int i = 0; i < Math.min(versionPrefixParts.length, versionParts.length); i++) {
+			if (!versionPrefixParts[i].equals(versionParts[i])) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+
+	/**
+	 * 获取HostName
+	 *
+	 * @param
+	 * @return java.lang.String
+	 */
+	public static String getHostName() {
+		return IS_OS_WINDOWS ? System.getenv("COMPUTERNAME") : System.getenv("HOSTNAME");
+	}
+
+	/**
+	 * 获取系统地址信息
+	 * getHostName
+	 * getHostAddress
+	 *
+	 * @param
+	 * @return java.net.InetAddress
+	 */
+	public static InetAddress getInetAddress() {
+		InetAddress inetAddress = null;
+		try {
+			inetAddress = InetAddress.getLocalHost();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return inetAddress;
+	}
+
+	/**
+	 * 查看指定系统变量（-D）
+	 *
+	 * @param name
+	 * @return java.lang.String
+	 */
+	public static String getProperty(String name) {
+		return System.getProperty(name);
+	}
+
+	/**
+	 * 查看指定环境变量
+	 *
+	 * @param name
+	 * @return java.lang.String
+	 */
+	public static String getEnv(String name) {
+		return System.getenv(name);
+	}
+
+	/**
+	 * 从系统变量与环境变量中查找，系统变量优先
+	 *
+	 * @param
+	 * @return java.lang.String
+	 */
+	public static String getPropertyFromAll(String name) {
+		String value = getProperty(name);
+		if(value==null) {
+			value = getEnv(name);
+		}
+		return value;
+	}
+
+	/**
+	 * 注册系统变量监听
+	 * Properties 本质上是一个HashTable，每次读写都会加锁，所以不支持频繁的System.getProperty(name)来检查系统内容变化
+	 * 因此扩展了Properties子类,在其所关心的属性变化时进行通知.
+	 *
+	 * @see ListenableProperties
+	 */
+	public static synchronized void registerSysPropertiesListener(SysPropertiesListener listener) {
+		Properties currentProperties = System.getProperties();
+
+		// 将System的properties实现替换为ListenableProperties
+		if (!(currentProperties instanceof ListenableProperties)) {
+			ListenableProperties newProperties = new ListenableProperties(currentProperties);
+			System.setProperties(newProperties);
+			currentProperties = newProperties;
+		}
+
+		((ListenableProperties) currentProperties).register(listener);
+	}
+
+	/**
+	 * 获取所关心的Property变更的Listener基类.
+	 */
+	public abstract static class SysPropertiesListener {
+		// 关心的Property
+		protected String propertyName;
+		public SysPropertiesListener(String propertyName) {
+			this.propertyName = propertyName;
+		}
+		public abstract void onChange(String propertyName, String value);
+	}
+
+	/**
+	 * Properties扩展类类,在其所关心的属性变化时进行通知.
+	 *
+	 * @see SysPropertiesListener
+	 */
+	private static class ListenableProperties extends Properties {
+
+		private static final long serialVersionUID = -8282465702074684324L;
+
+		protected transient List<SysPropertiesListener> listeners = new CopyOnWriteArrayList<SysPropertiesListener>();
+
+		public ListenableProperties(Properties properties) {
+			super(properties);
+		}
+
+		public void register(SysPropertiesListener listener) {
+			listeners.add(listener);
+		}
+
+		@Override
+		public synchronized Object setProperty(String key, String value) {
+			Object result = put(key, value);
+			for (SysPropertiesListener listener : listeners) {
+				if (listener.propertyName.equals(key)) {
+					listener.onChange(key, value);
+				}
+			}
+			return result;
+		}
+	}
+
 }
