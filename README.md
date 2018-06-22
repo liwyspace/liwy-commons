@@ -25,7 +25,6 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 ## 2. 模块
 
 * `liwy-commons-lang` - 基础工具
-* `liwy-commons-validator` - 校验工具
 * `liwy-commons-dbutils` - JDBC工具
 * `liwy-commons-http` - Http客户端工具
 * `liwy-commons-proxy` - 动态代理工具
@@ -35,17 +34,16 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 
 ### liwy-commons-lang
 
-* `StringUtils` - 字符串工具
-* `RandomUtils v1.0.1` - 随机工具
-* `EnumUtils v1.0.1` - 枚举工具
-* `SystemUtils v1.0.1` - 系统参数工具
-* `ExceptionUtils v1.0.1` - 异常工具
+* `AntPathMatcher v1.0.1` - Ant风格Path匹配工具
 * `BeanUtils v1.0.1` - Bean工具
 * `ClassUtils v1.0.1` - Class工具
-* `ReflectUtils v1.0.1` - 反射工具
-* `JsonUtils` - JSON工具
+* `EnumUtils v1.0.1` - 枚举工具
+* `ExceptionUtils v1.0.1` - 异常工具
 * `PropertiesUtils v1.0.1` - Properties工具
-* `AntPathMatcher v1.0.1` - Ant风格Path匹配工具
+* `RandomUtils v1.0.1` - 随机工具
+* `ReflectUtils v1.0.1` - 反射工具
+* `StringUtils v1.0.1` - 字符串工具
+* `SystemUtils v1.0.1` - 系统参数工具
 * algorithms 算法包
     * `SortUtils` - 排序算法
 * codec 加密解密包
@@ -67,12 +65,12 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
     * `FileUtils` - 文件工具
     * `PathUtils` - 路径工具
     * `FileNameUtils` - 文件名工具
+* json JSON包
+    * `JsonUtils` - JSON工具
 * concurrent 并发包
     * `ThreadUtils` - 多线程工具
-
-### liwy-commons-validator
-
-* `ValidateUtils` - 数据验证工具
+* validator 验证包
+    * `ValidateUtils v1.0.1` - 验证工具类
 
 ### liwy-commons-dbutils
 

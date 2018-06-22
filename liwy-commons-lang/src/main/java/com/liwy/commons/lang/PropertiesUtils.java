@@ -1,11 +1,7 @@
 package com.liwy.commons.lang;
 
-import jodd.io.StreamUtil;
-
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;

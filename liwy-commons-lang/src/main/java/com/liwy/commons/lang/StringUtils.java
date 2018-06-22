@@ -52,12 +52,11 @@ import java.util.regex.Pattern;
  * <p>#线程安全的#</p>
  * 
  * @author liwy
- * @version 1.0
+ * @version v1.0.1
  */
 public class StringUtils {
 	/**
 	 * The empty String {@code ""}.
-	 * @since 2.0
 	 */
 	public static final String EMPTY = "";
 	public static final String UNDERLINE = "_";
@@ -112,6 +111,20 @@ public class StringUtils {
         }
         return true;
     }
+
+    /**
+     * 判断字符串是否包含某个字符
+     *
+     * @param str
+     * @param searchChar
+     * @return boolean
+     */
+    public static boolean isContains(String str, int searchChar) {
+    	if(isEmpty(str)) {
+    		return false;
+		}
+		return str.indexOf(searchChar, 0)>=0;
+	}
     
     /**
      * <p>清除左右空白，如果为null则返回""</p>
