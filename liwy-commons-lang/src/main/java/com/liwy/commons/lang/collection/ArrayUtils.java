@@ -9,90 +9,63 @@ import java.util.Map.Entry;
 
 /**
  * <p>关于数组的工具类</p>
+ *
+ * <ul>
+ *  <li><b>getLength</b>
+ *      - 获取数组的长度</li>
+ *  <li><b>toMap</b>
+ *      - 将给定的数组转换为{@link Map}</li>
+ *  <li><b>toArray</b>
+ *      - 创建类型安全的通用数组</li>
+ *  <li><b>clone</b>
+ *      - 浅克隆数组返回一个类型化的结果和处理</li>
+ *  <li><b>subarray</b>
+ *      - 截取数组</li>
+ *  <li><b>reverse</b>
+ *      - 反向指定的数组</li>
+ *  <li><b>swap</b>
+ *      - 交换指定元素</li>
+ *  <li><b>indexOf</b>
+ *      - 获取数组元素所在位置</li>
+ *  <li><b>contains</b>
+ *      - 是否包含指定元素</li>
+ *  <li><b>isEmpty</b>
+ *      - 校验数组是否为空</li>
+ *  <li><b>nullToEmpty</b>
+ *      - 将null转换为空数组</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class ArrayUtils {
     /**
-     * An empty immutable {@code Object} array.
+     * 空数组常量
      */
     public static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
-    /**
-     * An empty immutable {@code Class} array.
-     */
     public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
-    /**
-     * An empty immutable {@code String} array.
-     */
     public static final String[] EMPTY_STRING_ARRAY = new String[0];
-    /**
-     * An empty immutable {@code long} array.
-     */
     public static final long[] EMPTY_LONG_ARRAY = new long[0];
-    /**
-     * An empty immutable {@code Long} array.
-     */
     public static final Long[] EMPTY_LONG_OBJECT_ARRAY = new Long[0];
-    /**
-     * An empty immutable {@code int} array.
-     */
     public static final int[] EMPTY_INT_ARRAY = new int[0];
-    /**
-     * An empty immutable {@code Integer} array.
-     */
     public static final Integer[] EMPTY_INTEGER_OBJECT_ARRAY = new Integer[0];
-    /**
-     * An empty immutable {@code short} array.
-     */
     public static final short[] EMPTY_SHORT_ARRAY = new short[0];
-    /**
-     * An empty immutable {@code Short} array.
-     */
     public static final Short[] EMPTY_SHORT_OBJECT_ARRAY = new Short[0];
-    /**
-     * An empty immutable {@code byte} array.
-     */
     public static final byte[] EMPTY_BYTE_ARRAY = new byte[0];
-    /**
-     * An empty immutable {@code Byte} array.
-     */
     public static final Byte[] EMPTY_BYTE_OBJECT_ARRAY = new Byte[0];
-    /**
-     * An empty immutable {@code double} array.
-     */
     public static final double[] EMPTY_DOUBLE_ARRAY = new double[0];
-    /**
-     * An empty immutable {@code Double} array.
-     */
     public static final Double[] EMPTY_DOUBLE_OBJECT_ARRAY = new Double[0];
-    /**
-     * An empty immutable {@code float} array.
-     */
     public static final float[] EMPTY_FLOAT_ARRAY = new float[0];
-    /**
-     * An empty immutable {@code Float} array.
-     */
     public static final Float[] EMPTY_FLOAT_OBJECT_ARRAY = new Float[0];
-    /**
-     * An empty immutable {@code boolean} array.
-     */
     public static final boolean[] EMPTY_BOOLEAN_ARRAY = new boolean[0];
-    /**
-     * An empty immutable {@code Boolean} array.
-     */
     public static final Boolean[] EMPTY_BOOLEAN_OBJECT_ARRAY = new Boolean[0];
-    /**
-     * An empty immutable {@code char} array.
-     */
     public static final char[] EMPTY_CHAR_ARRAY = new char[0];
-    /**
-     * An empty immutable {@code Character} array.
-     */
     public static final Character[] EMPTY_CHARACTER_OBJECT_ARRAY = new Character[0];
 
     /**
-     * <p>Returns the length of the specified array.
-     * This method can deal with {@code Object} arrays and with primitive arrays.
+     * <p>获取数组的长度
      *
-     * <p>If the input array is {@code null}, {@code 0} is returned.
+     * <p>如果参数为null则返回0
      *
      * <pre>
      * ArrayUtils.getLength(null)            = 0
@@ -103,10 +76,8 @@ public class ArrayUtils {
      * ArrayUtils.getLength(["a", "b", "c"]) = 3
      * </pre>
      *
-     * @param array  the array to retrieve the length from, may be null
-     * @return The length of the array, or {@code 0} if the array is {@code null}
-     * @throws IllegalArgumentException if the object argument is not an array.
-     * @since 2.1
+     * @param array
+     * @return int
      */
     public static int getLength(final Object array) {
         if (array == null) {
@@ -116,500 +87,21 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Checks if an array of Objects is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final Object[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive longs is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final long[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive ints is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final int[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive shorts is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final short[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive chars is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final char[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive bytes is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final byte[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive doubles is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final double[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive floats is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final float[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Checks if an array of primitive booleans is empty or {@code null}.
-     *
-     * @param array  the array to test
-     * @return {@code true} if the array is empty or {@code null}
-     * @since 2.1
-     */
-    public static boolean isEmpty(final boolean[] array) {
-        return getLength(array) == 0;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Object[] nullToEmpty(final Object[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 3.2
-     */
-    public static Class<?>[] nullToEmpty(final Class<?>[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CLASS_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static String[] nullToEmpty(final String[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_STRING_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static long[] nullToEmpty(final long[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_LONG_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static int[] nullToEmpty(final int[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_INT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static short[] nullToEmpty(final short[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_SHORT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static char[] nullToEmpty(final char[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CHAR_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static byte[] nullToEmpty(final byte[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BYTE_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static double[] nullToEmpty(final double[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_DOUBLE_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static float[] nullToEmpty(final float[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_FLOAT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static boolean[] nullToEmpty(final boolean[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BOOLEAN_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Long[] nullToEmpty(final Long[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_LONG_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Integer[] nullToEmpty(final Integer[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_INTEGER_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Short[] nullToEmpty(final Short[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_SHORT_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Character[] nullToEmpty(final Character[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_CHARACTER_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Byte[] nullToEmpty(final Byte[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BYTE_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Double[] nullToEmpty(final Double[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_DOUBLE_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Float[] nullToEmpty(final Float[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_FLOAT_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-    /**
-     * <p>Defensive programming technique to change a {@code null}
-     * reference to an empty one.
-     *
-     * <p>This method returns an empty array for a {@code null} input array.
-     *
-     * <p>As a memory optimizing technique an empty array passed in will be overridden with
-     * the empty {@code public static} references in this class.
-     *
-     * @param array  the array to check for {@code null} or empty
-     * @return the same array, {@code public static} empty array if {@code null} or empty input
-     * @since 2.5
-     */
-    public static Boolean[] nullToEmpty(final Boolean[] array) {
-        if (isEmpty(array)) {
-            return EMPTY_BOOLEAN_OBJECT_ARRAY;
-        }
-        return array;
-    }
-
-	/**
-	 * <p>将给定的数组转换为{@link Map}。
-	 * 每个数组的元素必须是{@link Entry}或数组，
-	 * 包含至少两个要素，其中第一个要素是作为键,第二个要素作为值</p>
-	 * 
-	 * <pre>
+     * <p>将给定的数组转换为{@link Map}。
+     * 每个数组的元素必须是{@link Entry}或数组，
+     * 包含至少两个要素，其中第一个要素是作为键,第二个要素作为值</p>
+     *
+     * <pre>
      * Map colorMap = ArrayUtils.toMap(new String[][] {
      *     {"RED", "#FF0000"},
      *     {"GREEN", "#00FF00"},
      *     {"BLUE", "#0000FF"}});
      * </pre>
-	 * 
-	 * @param array
-	 * @return
-	 */
-	public static Map<Object, Object> toMap(final Object[] array) {
+     *
+     * @param array
+     * @return
+     */
+    public static Map<Object, Object> toMap(final Object[] array) {
         if (array == null) {
             return null;
         }
@@ -623,8 +115,8 @@ public class ArrayUtils {
                 final Object[] entry = (Object[]) object;
                 if (entry.length < 2) {
                     throw new IllegalArgumentException("Array element " + i + ", '"
-                        + object
-                        + "', has a length less than 2");
+                            + object
+                            + "', has a length less than 2");
                 }
                 map.put(entry[0], entry[1]);
             } else {
@@ -635,8 +127,8 @@ public class ArrayUtils {
         }
         return map;
     }
-	
-	/**
+
+    /**
      * <p>创建类型安全的通用数组
      *
      * <p>java语言不允许数组是从泛型类型创建:
@@ -665,7 +157,7 @@ public class ArrayUtils {
      * 没有真正的优势与
      * <code>new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}</code>.
      * 相比
-     * 
+     *
      * @param  <T>   the array's element type
      * @param  items  the varargs array items, null allowed
      * @return the array, not null unless a null array is passed in
@@ -673,8 +165,7 @@ public class ArrayUtils {
     public static <T> T[] toArray(final T... items) {
         return items;
     }
-    
-	// static <T> T[] clone(final T[] array)
+
     /**
      * <p>浅克隆数组返回一个类型化的结果和处理
      * {@code null}.
@@ -693,8 +184,7 @@ public class ArrayUtils {
         }
         return array.clone();
     }
-    
-	// static <T> T[] subarray(final T[] array, int startIndexInclusive, int
+
     /**
      * <p>产生一个包含起始和结束索引之间元素的新数组</p>
      *
@@ -708,13 +198,8 @@ public class ArrayUtils {
      *
      * @param <T> 数组的组成类型
      * @param array  待处理的数组
-     * @param startIndexInclusive  the starting index. Undervalue (&lt;0)
-     *      is promoted to 0, overvalue (&gt;array.length) results
-     *      in an empty array.
-     * @param endIndexExclusive  elements up to endIndex-1 are present in the
-     *      returned subarray. Undervalue (&lt; startIndex) produces
-     *      empty array, overvalue (&gt;array.length) is demoted to
-     *      array length.
+     * @param startIndexInclusive
+     * @param endIndexExclusive
      * @return 包含起始索引和结束索引之间的元素的新数组。
      */
     public static <T> T[] subarray(final T[] array, int startIndexInclusive, int endIndexExclusive) {
@@ -730,18 +215,14 @@ public class ArrayUtils {
         final int newSize = endIndexExclusive - startIndexInclusive;
         final Class<?> type = array.getClass().getComponentType();
         if (newSize <= 0) {
-            @SuppressWarnings("unchecked") // OK, because array is of type T
             final T[] emptyArray = (T[]) Array.newInstance(type, 0);
             return emptyArray;
         }
-        @SuppressWarnings("unchecked") // OK, because array is of type T
-        final
-        T[] subarray = (T[]) Array.newInstance(type, newSize);
+        final T[] subarray = (T[]) Array.newInstance(type, newSize);
         System.arraycopy(array, startIndexInclusive, subarray, 0, newSize);
         return subarray;
     }
-    
-	// static void reverse(final Object[] array) --反向
+
     /**
      * <p>反向指定的数组
      * <p>多维数组没有特殊处理
@@ -758,18 +239,13 @@ public class ArrayUtils {
     /**
      * <p>
      * 在给定范围内颠倒给定数组的顺序。
-     * 
+     *
      * <p>
      * 此方法对{@code null}输入数组不起作用。
-     * 
+     *
      * @param array
-     *            the array to reverse, may be {@code null}
      * @param startIndexInclusive
-     *            the starting index. Under value (&lt;0) is promoted to 0, over value (&gt;array.length) results in no
-     *            change.
      * @param endIndexExclusive
-     *            elements up to endIndex-1 are reversed in the array. Under value (&lt; start index) results in no
-     *            change. Over value (&gt;array.length) is demoted to array length.
      */
     public static void reverse(final Object[] array, final int startIndexInclusive, final int endIndexExclusive) {
         if (array == null) {
@@ -786,15 +262,10 @@ public class ArrayUtils {
             i++;
         }
     }
-    
-	// static void swap(final Object[] array, int offset1, int offset2) --互换
+
     /**
-     * Swaps two elements in the given array.
+     * 交换指定元素
      *
-     * <p>There is no special handling for multi-dimensional arrays. This method
-     * does nothing for a {@code null} or empty input array or for overflow indices.
-     * Negative indices are promoted to 0(zero).</p>
-     * 
      * Examples:
      * <ul>
      *     <li>ArrayUtils.swap(["1", "2", "3"], 0, 2) -&gt; ["3", "2", "1"]</li>
@@ -810,32 +281,6 @@ public class ArrayUtils {
      * @since 3.5
      */
     public static void swap(final Object[] array, int offset1, int offset2) {
-        if (array == null || array.length == 0) {
-            return;
-        }
-        swap(array, offset1, offset2, 1);
-    }
-    /**
-     * 在给定数组中交换一系列元素
-     *
-     * <p>此方法不适用于{@code null}或“空输入数组”或“溢出索引”。
-     * 负指数提升至0（零）。如果任何子数组在给定数组外交换掉，则交换将在数组的结尾处被停止，并且将尽可能多的元素进行交换。</p>
-     *
-     * Examples:
-     * <ul>
-     *     <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 2, 1) -&gt; ["3", "2", "1", "4"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 0, 1) -&gt; ["1", "2", "3", "4"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3", "4"], 2, 0, 2) -&gt; ["3", "4", "1", "2"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3", "4"], -3, 2, 2) -&gt; ["3", "4", "1", "2"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3", "4"], 0, 3, 3) -&gt; ["4", "2", "3", "1"]</li>
-     * </ul>
-     *
-     * @param array the array to swap, may be {@code null}
-     * @param offset1 the index of the first element in the series to swap
-     * @param offset2 the index of the second element in the series to swap
-     * @param len the number of elements to swap starting with the given indices
-     */
-    public static void swap(final Object[] array,  int offset1, int offset2, int len) {
         if (array == null || array.length == 0 || offset1 >= array.length || offset2 >= array.length) {
             return;
         }
@@ -845,16 +290,11 @@ public class ArrayUtils {
         if (offset2 < 0) {
             offset2 = 0;
         }
-        len = Math.min(Math.min(len, array.length - offset1), array.length - offset2);
-        for (int i = 0; i < len; i++, offset1++, offset2++) {
-            Object aux = array[offset1];
-            array[offset1] = array[offset2];
-            array[offset2] = aux;
-        }
+        Object aux = array[offset1];
+        array[offset1] = array[offset2];
+        array[offset2] = aux;
     }
-    
-    
-	// static int indexOf(final Object[] array, final Object objectToFind)
+
     /**
      * <p>获取指定对象在指定数组中的索引
      *
@@ -871,11 +311,6 @@ public class ArrayUtils {
 
     /**
      * <p>获取指定对象在指定数组该数组从指定索引开始中的索引
-     *
-     * <p>This method returns ({@code -1}) for a {@code null} input array.
-     *
-     * <p>A negative startIndex is treated as zero. A startIndex larger than the array
-     * length will return ({@code -1}).
      *
      * @param array  the array to search through for the object, may be {@code null}
      * @param objectToFind  the object to find, may be {@code null}
@@ -917,492 +352,177 @@ public class ArrayUtils {
     public static boolean contains(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind) != -1;
     }
-    
-    // 基本数据类型与Object数据类型转换
-    // Character array converters
-    // ----------------------------------------------------------------------
+
     /**
-     * <p>Converts an array of object Characters to primitives.
+     * 校验数组是否为空
      *
-     * <p>This method returns {@code null} for a {@code null} input array.
+     * @param array
+     * @return boolean
+     */
+    public static boolean isEmpty(final Object[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final long[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final int[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final short[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final char[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final byte[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final double[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final float[] array) {
+        return getLength(array) == 0;
+    }
+    public static boolean isEmpty(final boolean[] array) {
+        return getLength(array) == 0;
+    }
+
+    /**
+     * 将null转换为空数组
+     *
+     * @param array
+     * @return java.lang.Object[]
+     */
+    public static <T> T[] nullToEmpty(final T[] array, final Class<T[]> type) {
+        if (type == null) {
+            throw new IllegalArgumentException("The type must not be null");
+        }
+
+        if (array == null) {
+            return type.cast(Array.newInstance(type.getComponentType(), 0));
+        }
+        return array;
+    }
+    public static Object[] nullToEmpty(final Object[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Class<?>[] nullToEmpty(final Class<?>[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_CLASS_ARRAY;
+        }
+        return array;
+    }
+    public static String[] nullToEmpty(final String[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_STRING_ARRAY;
+        }
+        return array;
+    }
+    public static long[] nullToEmpty(final long[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_LONG_ARRAY;
+        }
+        return array;
+    }
+    public static int[] nullToEmpty(final int[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_INT_ARRAY;
+        }
+        return array;
+    }
+    public static short[] nullToEmpty(final short[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_SHORT_ARRAY;
+        }
+        return array;
+    }
+    public static char[] nullToEmpty(final char[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_CHAR_ARRAY;
+        }
+        return array;
+    }
+    public static byte[] nullToEmpty(final byte[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_BYTE_ARRAY;
+        }
+        return array;
+    }
+    public static double[] nullToEmpty(final double[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_DOUBLE_ARRAY;
+        }
+        return array;
+    }
+    public static float[] nullToEmpty(final float[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_FLOAT_ARRAY;
+        }
+        return array;
+    }
+    public static boolean[] nullToEmpty(final boolean[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_BOOLEAN_ARRAY;
+        }
+        return array;
+    }
+    public static Long[] nullToEmpty(final Long[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_LONG_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Integer[] nullToEmpty(final Integer[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_INTEGER_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Short[] nullToEmpty(final Short[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_SHORT_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Character[] nullToEmpty(final Character[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_CHARACTER_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Byte[] nullToEmpty(final Byte[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_BYTE_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Double[] nullToEmpty(final Double[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_DOUBLE_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Float[] nullToEmpty(final Float[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_FLOAT_OBJECT_ARRAY;
+        }
+        return array;
+    }
+    public static Boolean[] nullToEmpty(final Boolean[] array) {
+        if (isEmpty(array)) {
+            return EMPTY_BOOLEAN_OBJECT_ARRAY;
+        }
+        return array;
+    }
+
+    /**
+     * <p>将包装类数组转换为基本数据类型数组
      *
      * @param array  a {@code Character} array, may be {@code null}
      * @return a {@code char} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static char[] toPrimitive(final Character[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new char[0];
-        }
-        final char[] result = new char[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].charValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Character to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Character} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code char} array, {@code null} if null array input
-     */
-    public static char[] toPrimitive(final Character[] array, final char valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new char[0];
-        }
-        final char[] result = new char[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Character b = array[i];
-            result[i] = (b == null ? valueForNull : b.charValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive chars to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array a {@code char} array
-     * @return a {@code Character} array, {@code null} if null array input
-     */
-    public static Character[] toObject(final char[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Character[0];
-        }
-        final Character[] result = new Character[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Character.valueOf(array[i]);
-        }
-        return result;
-     }
-
-    // Long array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Longs to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Long} array, may be {@code null}
-     * @return a {@code long} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static long[] toPrimitive(final Long[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new long[0];
-        }
-        final long[] result = new long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].longValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Long to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Long} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code long} array, {@code null} if null array input
-     */
-    public static long[] toPrimitive(final Long[] array, final long valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new long[0];
-        }
-        final long[] result = new long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Long b = array[i];
-            result[i] = (b == null ? valueForNull : b.longValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive longs to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code long} array
-     * @return a {@code Long} array, {@code null} if null array input
-     */
-    public static Long[] toObject(final long[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Long[0];
-        }
-        final Long[] result = new Long[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Long.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    // Int array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Integers to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Integer} array, may be {@code null}
-     * @return an {@code int} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static int[] toPrimitive(final Integer[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new int[0];
-        }
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].intValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Integer to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Integer} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return an {@code int} array, {@code null} if null array input
-     */
-    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new int[0];
-        }
-        final int[] result = new int[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Integer b = array[i];
-            result[i] = (b == null ? valueForNull : b.intValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive ints to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  an {@code int} array
-     * @return an {@code Integer} array, {@code null} if null array input
-     */
-    public static Integer[] toObject(final int[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Integer[0];
-        }
-        final Integer[] result = new Integer[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Integer.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    // Short array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Shorts to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Short} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static short[] toPrimitive(final Short[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new short[0];
-        }
-        final short[] result = new short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].shortValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Short to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Short} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
-     */
-    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new short[0];
-        }
-        final short[] result = new short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Short b = array[i];
-            result[i] = (b == null ? valueForNull : b.shortValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive shorts to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code short} array
-     * @return a {@code Short} array, {@code null} if null array input
-     */
-    public static Short[] toObject(final short[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Short[0];
-        }
-        final Short[] result = new Short[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Short.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    // Byte array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Bytes to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Byte} array, may be {@code null}
-     * @return a {@code byte} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static byte[] toPrimitive(final Byte[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new byte[0];
-        }
-        final byte[] result = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].byteValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Bytes to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Byte} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code byte} array, {@code null} if null array input
-     */
-    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new byte[0];
-        }
-        final byte[] result = new byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Byte b = array[i];
-            result[i] = (b == null ? valueForNull : b.byteValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive bytes to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code byte} array
-     * @return a {@code Byte} array, {@code null} if null array input
-     */
-    public static Byte[] toObject(final byte[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Byte[0];
-        }
-        final Byte[] result = new Byte[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Byte.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    // Double array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Doubles to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Double} array, may be {@code null}
-     * @return a {@code double} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static double[] toPrimitive(final Double[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new double[0];
-        }
-        final double[] result = new double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].doubleValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Doubles to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Double} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code double} array, {@code null} if null array input
-     */
-    public static double[] toPrimitive(final Double[] array, final double valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new double[0];
-        }
-        final double[] result = new double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Double b = array[i];
-            result[i] = (b == null ? valueForNull : b.doubleValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive doubles to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code double} array
-     * @return a {@code Double} array, {@code null} if null array input
-     */
-    public static Double[] toObject(final double[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Double[0];
-        }
-        final Double[] result = new Double[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Double.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    //   Float array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Floats to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Float} array, may be {@code null}
-     * @return a {@code float} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
-    public static float[] toPrimitive(final Float[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new float[0];
-        }
-        final float[] result = new float[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = array[i].floatValue();
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of object Floats to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Float} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code float} array, {@code null} if null array input
-     */
-    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new float[0];
-        }
-        final float[] result = new float[array.length];
-        for (int i = 0; i < array.length; i++) {
-            final Float b = array[i];
-            result[i] = (b == null ? valueForNull : b.floatValue());
-        }
-        return result;
-    }
-
-    /**
-     * <p>Converts an array of primitive floats to objects.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code float} array
-     * @return a {@code Float} array, {@code null} if null array input
-     */
-    public static Float[] toObject(final float[] array) {
-        if (array == null) {
-            return null;
-        } else if (array.length == 0) {
-            return new Float[0];
-        }
-        final Float[] result = new Float[array.length];
-        for (int i = 0; i < array.length; i++) {
-            result[i] = Float.valueOf(array[i]);
-        }
-        return result;
-    }
-
-    /**
-     * <p>Create an array of primitive type from an array of wrapper types.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  an array of wrapper object
-     * @return an array of the corresponding primitive type, or the original array
-     * @since 3.5
      */
     public static Object toPrimitive(final Object array) {
         if (array == null) {
@@ -1427,18 +547,182 @@ public class ArrayUtils {
         }
         return array;
     }
+    public static char[] toPrimitive(final Character[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new char[0];
+        }
+        final char[] result = new char[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].charValue();
+        }
+        return result;
+    }
+    public static char[] toPrimitive(final Character[] array, final char valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new char[0];
+        }
+        final char[] result = new char[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Character b = array[i];
+            result[i] = (b == null ? valueForNull : b.charValue());
+        }
+        return result;
+    }
 
-    // Boolean array converters
-    // ----------------------------------------------------------------------
-    /**
-     * <p>Converts an array of object Booleans to primitives.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Boolean} array, may be {@code null}
-     * @return a {@code boolean} array, {@code null} if null array input
-     * @throws NullPointerException if array content is {@code null}
-     */
+    public static long[] toPrimitive(final Long[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new long[0];
+        }
+        final long[] result = new long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].longValue();
+        }
+        return result;
+    }
+    public static long[] toPrimitive(final Long[] array, final long valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new long[0];
+        }
+        final long[] result = new long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Long b = array[i];
+            result[i] = (b == null ? valueForNull : b.longValue());
+        }
+        return result;
+    }
+    public static int[] toPrimitive(final Integer[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new int[0];
+        }
+        final int[] result = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].intValue();
+        }
+        return result;
+    }
+    public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new int[0];
+        }
+        final int[] result = new int[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Integer b = array[i];
+            result[i] = (b == null ? valueForNull : b.intValue());
+        }
+        return result;
+    }
+    public static short[] toPrimitive(final Short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new short[0];
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].shortValue();
+        }
+        return result;
+    }
+    public static short[] toPrimitive(final Short[] array, final short valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new short[0];
+        }
+        final short[] result = new short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Short b = array[i];
+            result[i] = (b == null ? valueForNull : b.shortValue());
+        }
+        return result;
+    }
+    public static byte[] toPrimitive(final Byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new byte[0];
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].byteValue();
+        }
+        return result;
+    }
+    public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new byte[0];
+        }
+        final byte[] result = new byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Byte b = array[i];
+            result[i] = (b == null ? valueForNull : b.byteValue());
+        }
+        return result;
+    }
+    public static double[] toPrimitive(final Double[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new double[0];
+        }
+        final double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].doubleValue();
+        }
+        return result;
+    }
+    public static double[] toPrimitive(final Double[] array, final double valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new double[0];
+        }
+        final double[] result = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Double b = array[i];
+            result[i] = (b == null ? valueForNull : b.doubleValue());
+        }
+        return result;
+    }
+    public static float[] toPrimitive(final Float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new float[0];
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = array[i].floatValue();
+        }
+        return result;
+    }
+    public static float[] toPrimitive(final Float[] array, final float valueForNull) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new float[0];
+        }
+        final float[] result = new float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            final Float b = array[i];
+            result[i] = (b == null ? valueForNull : b.floatValue());
+        }
+        return result;
+    }
     public static boolean[] toPrimitive(final Boolean[] array) {
         if (array == null) {
             return null;
@@ -1451,16 +735,6 @@ public class ArrayUtils {
         }
         return result;
     }
-
-    /**
-     * <p>Converts an array of object Booleans to primitives handling {@code null}.
-     *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code Boolean} array, may be {@code null}
-     * @param valueForNull  the value to insert if {@code null} found
-     * @return a {@code boolean} array, {@code null} if null array input
-     */
     public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
         if (array == null) {
             return null;
@@ -1476,13 +750,95 @@ public class ArrayUtils {
     }
 
     /**
-     * <p>Converts an array of primitive booleans to objects.
+     * <p>将基本数据类型数组转换为包装类数组
      *
-     * <p>This method returns {@code null} for a {@code null} input array.
-     *
-     * @param array  a {@code boolean} array
-     * @return a {@code Boolean} array, {@code null} if null array input
+     * @param array
+     * @return java.lang.Character[]
      */
+    public static Character[] toObject(final char[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Character[0];
+        }
+        final Character[] result = new Character[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Character.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Long[] toObject(final long[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Long[0];
+        }
+        final Long[] result = new Long[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Long.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Integer[] toObject(final int[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Integer[0];
+        }
+        final Integer[] result = new Integer[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Integer.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Short[] toObject(final short[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Short[0];
+        }
+        final Short[] result = new Short[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Short.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Byte[] toObject(final byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Byte[0];
+        }
+        final Byte[] result = new Byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Byte.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Double[] toObject(final double[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Double[0];
+        }
+        final Double[] result = new Double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Double.valueOf(array[i]);
+        }
+        return result;
+    }
+    public static Float[] toObject(final float[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Float[0];
+        }
+        final Float[] result = new Float[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Float.valueOf(array[i]);
+        }
+        return result;
+    }
     public static Boolean[] toObject(final boolean[] array) {
         if (array == null) {
             return null;
@@ -1520,6 +876,9 @@ public class ArrayUtils {
     }
     
 	// remove
+    public static <T> T[] remove(final T[] array, final int index) {
+        return (T[]) remove((Object) array, index);
+    }
     private static Object remove(final Object array, final int index) {
         int length = 0;
         if(array==null) {

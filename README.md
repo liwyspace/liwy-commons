@@ -45,21 +45,17 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 * `StringUtils v1.0.1` - 字符串工具
 * `SystemUtils v1.0.1` - 系统参数工具
 * algorithms 算法包
-    * `SortUtils` - 排序算法
+    * `SortUtils v1.0.1` - 排序算法
 * codec 加密解密包
     * `CodecUtils v1.0.1` - 加密解密工具
-* time 时间包
-    * `DateUtils` - 日期工具
-    * `StopwatchUtils` - 秒表工具
-* math 数学包
-    * `NumberUtils` - 数字工具
-    * `MathUtils` - 数学工具
 * collection 集合包
     * `ArrayUtils` - 数组工具
     * `ListUtils` - List工具
     * `MapUtils` - Map工具
     * `QueueUtils` - Queue工具
     * `SetUtils` - Set工具
+* concurrent 并发包
+    * `ThreadUtils` - 多线程工具
 * io IO包
     * `StreamUtils` - IO工具
     * `FileUtils` - 文件工具
@@ -67,8 +63,12 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
     * `FileNameUtils` - 文件名工具
 * json JSON包
     * `JsonUtils` - JSON工具
-* concurrent 并发包
-    * `ThreadUtils` - 多线程工具
+* math 数学包
+    * `NumberUtils` - 数字工具
+    * `MathUtils` - 数学工具
+* time 时间包
+    * `DateUtils` - 日期工具
+    * `StopwatchUtils` - 秒表工具
 * validator 验证包
     * `ValidateUtils v1.0.1` - 验证工具类
 

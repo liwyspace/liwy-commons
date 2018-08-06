@@ -1,18 +1,37 @@
 package com.liwy.commons.lang.algorithms;
 
 /**
- * 排序算法工具类
- * 
- * @author liwy-psbc
- * 
+ * <p>排序算法工具类</p>
+ *
+ * <ul>
+ *  <li><b>insertSort</b>
+ *      - 直接插入排序</li>
+ *  <li><b>shellSort</b>
+ *      - 希尔排序</li>
+ *  <li><b>bubbleSort</b>
+ *      - 冒泡排序</li>
+ *  <li><b>quickSort</b>
+ *      - 快速排序</li>
+ *  <li><b>selectSort</b>
+ *      - 直接选择排序</li>
+ *  <li><b>heapSort</b>
+ *      - 堆排序</li>
+ *  <li><b>mergeSort</b>
+ *      - 归并排序</li>
+ *  <li><b>radixSort</b>
+ *      - 基数排序</li>
+ * </ul>
+ *
+ * @author liwy
+ * @version v1.0.1
  */
 public class SortUtils {
 	/**
-	 * 直接插入排序
+	 * <p>直接插入排序
 	 * 
-	 * 先将序列的第1个记录看成是一个有序的子序列，然后从第2个记录逐个进行插入， 直至整个序列有序为止。
+	 * <p>先将序列的第1个记录看成是一个有序的子序列，然后从第2个记录逐个进行插入， 直至整个序列有序为止。
 	 * 
-	 * 平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n)
+	 * <p>平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n)
 	 * 
 	 * @param array
 	 *            待排序数组
@@ -32,11 +51,11 @@ public class SortUtils {
 	}
 
 	/**
-	 * 希尔排序(缩小增量排序)
+	 * <p>希尔排序(缩小增量排序)
 	 * 
-	 * 先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序， 待整个序列中的记录"基本有序"时，再对全体记录进行依次直接插入排序。
+	 * <p>先将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序， 待整个序列中的记录"基本有序"时，再对全体记录进行依次直接插入排序。
 	 * 
-	 * 平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：
+	 * <p>平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：
 	 * 
 	 * @param array 待排序数组
 	 */
@@ -60,11 +79,11 @@ public class SortUtils {
 	}
 
 	/**
-	 * 冒泡排序
+	 * <p>冒泡排序
 	 * 
-	 * 比较相邻的前后二个数据，如果前面数据大于后面的数据，就将二个数据交换。
+	 * <p>比较相邻的前后二个数据，如果前面数据大于后面的数据，就将二个数据交换。
 	 * 
-	 * 平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n)
+	 * <p>平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n)
 	 * 
 	 * @param array
 	 */
@@ -81,12 +100,12 @@ public class SortUtils {
 	}
 
 	/**
-	 * 快速排序
+	 * <p>快速排序
 	 * 
-	 * 先从数列中取出一个数作为基准数; 分区过程，将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边;
+	 * <p>先从数列中取出一个数作为基准数; 分区过程，将比这个数大的数全放到它的右边，小于或等于它的数全放到它的左边;
 	 * 再对左右区间重复第二步，直到各区间只有一个数。
 	 * 
-	 * 平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(nlog2n)
+	 * <p>平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(nlog2n)
 	 * 
 	 * @param array
 	 */
@@ -117,9 +136,9 @@ public class SortUtils {
 	}
 
 	/**
-	 * 直接选择排序
+	 * <p>直接选择排序
 	 * 
-	 * 平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n^2)
+	 * <p>平均时间复杂度：O(n^2) 最坏时间复杂度：O(n^2) 最好时间复杂度：O(n^2)
 	 * 
 	 * @param array
 	 */
@@ -143,9 +162,9 @@ public class SortUtils {
 	}
 
 	/**
-	 * 堆排序
+	 * <p>堆排序
 	 * 
-	 * 平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：O(nlog2n)
+	 * <p>平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：O(nlog2n)
 	 * 
 	 * @param array
 	 */
@@ -170,7 +189,7 @@ public class SortUtils {
 	}
 	
 	/** 
-	 * 调整arry[s],使其成为大顶堆.即将对第s个结点为根的子树筛选,  
+	 * <p>调整arry[s],使其成为大顶堆.即将对第s个结点为根的子树筛选,
 	 * 
 	 * @param arry 待调整的堆数组
 	 * @param s 待调整的数组元素的位置
@@ -198,9 +217,9 @@ public class SortUtils {
 	  
 
 	/**
-	 * 归并排序
+	 * <p>归并排序
 	 * 
-	 * 平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：O(nlog2n)
+	 * <p>平均时间复杂度：O(nlog2n) 最坏时间复杂度：O(nlog2n) 最好时间复杂度：O(nlog2n)
 	 * 
 	 * @param array
 	 */
@@ -219,7 +238,8 @@ public class SortUtils {
 	}
 	
 	/**
-	 * 将array[fir...mid]和array[mid-1...las]归并后覆盖到array[fir...las]中
+	 * <p>将array[fir...mid]和array[mid-1...las]归并后覆盖到array[fir...las]中
+	 *
 	 * @param array
 	 * @param fir
 	 * @param mid
@@ -245,11 +265,10 @@ public class SortUtils {
 	}
 
 	/**
-	 * 基数排序</br>
-	 * 非比较排序，暂不支持小数和负数
-	 * 
-	 * 
-	 * 平均时间复杂度：O(d(n+r)) 最坏时间复杂度：O(d(n+r)) 最好时间复杂度：O(d(n+r))
+	 * <p>基数排序
+	 * <p>非比较排序，暂不支持小数和负数
+	 *
+	 * <p>平均时间复杂度：O(d(n+r)) 最坏时间复杂度：O(d(n+r)) 最好时间复杂度：O(d(n+r))
 	 * 
 	 * @param array
 	 * @param d 数组中最大元素的位数
