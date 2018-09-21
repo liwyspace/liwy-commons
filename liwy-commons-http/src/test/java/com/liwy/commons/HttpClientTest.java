@@ -78,7 +78,7 @@ public class HttpClientTest {
         FileEntity entity = new FileEntity(new File(""), ContentType.create("text/plain", "utf-8"));
         post.setEntity(entity);
         // UrlEncodedFormEntity
-        List<NameValuePair> formparams = new ArrayList<>();
+        List<NameValuePair> formparams = new ArrayList<NameValuePair>();
         formparams.add(new BasicNameValuePair("param1", "value1"));
         formparams.add(new BasicNameValuePair("param2", "value2"));
         UrlEncodedFormEntity entity1 = new UrlEncodedFormEntity(formparams);

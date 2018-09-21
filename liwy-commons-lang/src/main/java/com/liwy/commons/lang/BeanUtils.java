@@ -62,9 +62,9 @@ public class BeanUtils {
      */
     public static Map<String, Object> beanToMap(Object bean) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         if (bean == null) {
-            return (new java.util.HashMap<>());
+            return (new java.util.HashMap());
         }
-        Map<String, Object> beanMap = new HashMap<>();
+        Map<String, Object> beanMap = new HashMap();
 
         PropertyDescriptor[] descriptors = getPropertyDescriptors(bean);
         for (PropertyDescriptor descriptor : descriptors) {

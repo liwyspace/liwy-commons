@@ -32,7 +32,7 @@ public class ExceptionUtils {
      * @return List<Throwable>
      */
     public static List<Throwable> getThrowableList(Throwable throwable) {
-        final List<Throwable> list = new ArrayList<>();
+        final List<Throwable> list = new ArrayList<Throwable>();
         while (throwable != null && !list.contains(throwable)) {
             list.add(throwable);
             throwable = throwable.getCause();

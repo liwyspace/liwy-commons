@@ -16,6 +16,6 @@ public class ReflectUtilsTest {
         System.out.println("11111111");
         System.out.println(null == (Object)null);
         Object b = (Object)null;
-        b.equals("1");
+//        b.equals("1");
     }
 }

@@ -36,7 +36,7 @@ public class EnumUtils {
      * @return java.util.Map<java.lang.String,E>
      */
     public static <E extends Enum<E>> Map<String, E> getEnumMap(final Class<E> enumClass) {
-        final Map<String, E> map = new LinkedHashMap<>();
+        final Map<String, E> map = new LinkedHashMap<String, E>();
         for (final E e: enumClass.getEnumConstants()) {
             map.put(e.name(), e);
         }
@@ -50,7 +50,7 @@ public class EnumUtils {
      * @return java.util.List<E>
      */
     public static <E extends Enum<E>> List<E> getEnumList(final Class<E> enumClass) {
-        return new ArrayList<>(Arrays.asList(enumClass.getEnumConstants()));
+        return new ArrayList(Arrays.asList(enumClass.getEnumConstants()));
     }
 
     /**

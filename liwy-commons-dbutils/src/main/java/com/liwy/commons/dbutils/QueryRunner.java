@@ -369,7 +369,7 @@ public class QueryRunner {
                     Map parm = (Map) params[i];
                     if(parm.get("sqlType")!=null) {
                         Object result = stmt.getObject(i+1);
-                        if((int)parm.get("sqlType")== OracleTypes.CURSOR) {
+                        if((Integer)parm.get("sqlType")== OracleTypes.CURSOR) {
                             ResultSetHandler handler = (ResultSetHandler) parm.get("rsHandler");
                             ResultSet rs = (ResultSet) result;
                             result = handler.handle(rs);

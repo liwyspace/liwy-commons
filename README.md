@@ -96,6 +96,26 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 * `QueryRunner` - CRUD相关工具
 * `SqlCmdUtils` - 模拟SQL客户端
 
+## 3. 开发
+```shell
+#手动安装ojdbc依赖
+mvn install:install-file -Dfile=/opt/ojdbc6.jar -DgroupId=com.oracle -DartifactId=ojdbc6 -Dversion=11.2.0 -Dpackaging=jar -DgeneratePom=true
+
+mvn compile #编译项目的源代码
+mvn test #使用合适的单元测试框架来测试已编译的源代码
+mvn clean #清除先前构建的编译文件（target文件夹）。 
+mvn package #把已编译的代码打包成可发布的格式，比如jar。
+mvn install #把包安装在本地的repository中，可以被其他工程作为依赖来使用。 
+
+mvn dependency:list #查看依赖列表
+mvn dependency:tree #查看依赖树
+mvn dependency:analyze #Used undclared dependencies：使用到的但没有显示声明的依赖；Unused dclared dependencies:未使用的但显示声明的依赖
+
+mvn package -DskipTests  #跳过测试
+mvn test -Dtest=StringUtilTest #指定运行测试用例，可使用 "*" 号和 "," 号
+mvn cobertura:cobertura  #生成测试覆盖率报告
+```
+
 ## 3. 安装
 
 ### Maven
