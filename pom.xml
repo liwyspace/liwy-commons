@@ -7,7 +7,7 @@
     <groupId>com.liwy.commons</groupId>
     <artifactId>liwy-commons</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>1.0-SNAPSHOT</version>
 
     <modules>
         <module>liwy-commons-lang</module>
@@ -54,6 +54,11 @@
                 <artifactId>hutool-all</artifactId>
                 <version>4.1.0</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.51</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
