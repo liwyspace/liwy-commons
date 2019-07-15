@@ -1,36 +1,37 @@
 package com.liwy.commons.lang;
 
-import org.junit.Assert;
 import org.junit.Test;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 /**
- * <b>模块：</b> <br/>
- * <b>名称：</b> <br/>
- * <b>描述：</b> <br/>
- * <b>作者：</b> wenyao02.li <br/>
- * <b>创建时间：</b> 2018/6/14 14:32 <br/>
- * <b>版本：</b> V1.0 <br/>
+ * <p>Ant风格Path匹配模式工具的测试类</p>
+ *
+ * @author liwy
  */
 public class AntPathMatcherTest {
+
+    /**
+     * 测试是否匹配
+     */
     @Test
-    public void testMatch() {
-        AntPathMatcher matcher = new AntPathMatcher();
-        Assert.assertTrue(matcher.isMatch("src/main/java/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/main/**","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/main/**/","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/main/**","src/main/java/com/liwy/"));
-        Assert.assertTrue(matcher.isMatch("src/main/java/com/liwy/**","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("**/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/main/**/com/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/**/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/**/java/**/liwy","src/main/java/com/liwy"));
-        Assert.assertTrue(matcher.isMatch("src/**/ja*/**/liwy","src/main/java/com/liwy"));
+    public void testIsMatch() {
+        assertThat(AntPathMatcher.isMatch("src/main/java/com/liwy", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/main/**", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/main/**/", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/main/**", "src/main/java/com/liwy/"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/main/java/com/liwy/**", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("**/com/liwy", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/main/**/com/liwy", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/**/liwy", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/**/java/**/liwy", "src/main/java/com/liwy"), is(true));
+        assertThat(AntPathMatcher.isMatch("src/**/ja*/**/liwy", "src/main/java/com/liwy"), is(true));
 
-
-        Assert.assertFalse(matcher.isMatch("/src/main/java/com/liwy","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.isMatch("src/main/java/com/liwy/","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.isMatch("src/main/java/com/liwy/*","src/main/java/com/liwy"));
-        Assert.assertFalse(matcher.isMatch("/**/com/liwy","src/main/java/com/liwy"));
+        assertThat(AntPathMatcher.isMatch("/src/main/java/com/liwy", "src/main/java/com/liwy"), is(false));
+        assertThat(AntPathMatcher.isMatch("src/main/java/com/liwy/", "src/main/java/com/liwy"), is(false));
+        assertThat(AntPathMatcher.isMatch("src/main/java/com/liwy/*", "src/main/java/com/liwy"), is(false));
+        assertThat(AntPathMatcher.isMatch("/**/com/liwy", "src/main/java/com/liwy"), is(false));
 
     }
 }

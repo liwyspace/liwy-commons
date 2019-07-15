@@ -11,32 +11,34 @@ import java.util.regex.Pattern;
  * <p>Ant风格Path匹配模式<p/>
  *
  * <pre>
- *     `?` 匹配1个字符
- *     `*` 匹配0个或多个字符
+ *     `?`  匹配1个字符
+ *     `*`  匹配0个或多个字符
  *     `**` 匹配路径中的0个或多个目录
  * </pre>
  *
+ * <p>常用方法</p>
  * <ul>
- *     <li><b>isMatch<b/>
- *          - 路径字符串是否匹配pattern字符串</li>
+ * <li><b>isMatch<b/>   - 路径字符串是否匹配pattern字符串</li>
  * </ul>
  *
  * @author liwy
- * @version v1.0.1
+ * @version v1.0.2
  */
 public class AntPathMatcher {
-    /** 默认路径分隔符: "/" */
+    /**
+     * 默认路径分隔符: "/"
+     */
     public static final String DEFAULT_PATH_SEPARATOR = "/";
 
     /**
      * <p>是否匹配</p>
      *
      * @param pattern 通配符表达式
-     * @param path 要匹配的路径
+     * @param path    要匹配的路径
      * @return boolean 如果匹配返回true
      */
-    public boolean isMatch(String pattern, String path) {
-        if (path.startsWith(this.DEFAULT_PATH_SEPARATOR) != pattern.startsWith(this.DEFAULT_PATH_SEPARATOR)) {
+    public static boolean isMatch(String pattern, String path) {
+        if (path.startsWith(DEFAULT_PATH_SEPARATOR) != pattern.startsWith(DEFAULT_PATH_SEPARATOR)) {
             return false;
         }
 
@@ -65,12 +67,12 @@ public class AntPathMatcher {
         if (pathIdxStart > pathIdxEnd) {
             // Patt已遍历完所有元素，既Patt元素个数等于Path
             if (pattIdxStart > pattIdxEnd) {
-                return (pattern.endsWith(this.DEFAULT_PATH_SEPARATOR) ? path.endsWith(this.DEFAULT_PATH_SEPARATOR) :
-                        !path.endsWith(this.DEFAULT_PATH_SEPARATOR));
+                return (pattern.endsWith(DEFAULT_PATH_SEPARATOR) ? path.endsWith(DEFAULT_PATH_SEPARATOR) :
+                        !path.endsWith(DEFAULT_PATH_SEPARATOR));
             }
             // Patt到达最后一个元素，即Patt元素个数比Path多一个
             // 如果Patt最后一个元素是*或分隔符则可以匹配
-            if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(this.DEFAULT_PATH_SEPARATOR)) {
+            if (pattIdxStart == pattIdxEnd && pattDirs[pattIdxStart].equals("*") && path.endsWith(DEFAULT_PATH_SEPARATOR)) {
                 return true;
             }
 
@@ -169,12 +171,12 @@ public class AntPathMatcher {
      * @param path
      * @return java.lang.String[]
      */
-    protected String[] tokenizePath(String path) {
+    private static String[] tokenizePath(String path) {
         if (path == null) {
             return null;
         }
-        StringTokenizer st = new StringTokenizer(path, this.DEFAULT_PATH_SEPARATOR);
-        List<String> tokens = new ArrayList<String>();
+        StringTokenizer st = new StringTokenizer(path, DEFAULT_PATH_SEPARATOR);
+        List<String> tokens = new ArrayList<>();
         while (st.hasMoreTokens()) {
             String token = st.nextToken().trim();
             if (token.length() > 0) {
@@ -184,11 +186,11 @@ public class AntPathMatcher {
         return tokens.toArray(new String[tokens.size()]);
     }
 
-    private boolean matchStrings(String pattern, String str) {
+    private static boolean matchStrings(String pattern, String str) {
         return new AntPathStringMatcher(pattern).matchStrings(str);
     }
 
-    protected static class AntPathStringMatcher {
+    private static class AntPathStringMatcher {
         private static final Pattern GLOB_PATTERN = Pattern.compile("\\?|\\*|\\{((?:\\{[^/]+?\\}|[^/{}]|\\\\[{}])+?)\\}");
         private static final String DEFAULT_VARIABLE_PATTERN = "(.*)";
 
@@ -205,17 +207,14 @@ public class AntPathMatcher {
                 String match = m.group();
                 if ("?".equals(match)) {
                     patternBuilder.append('.');
-                }
-                else if ("*".equals(match)) {
+                } else if ("*".equals(match)) {
                     patternBuilder.append(".*");
-                }
-                else if (match.startsWith("{") && match.endsWith("}")) {
+                } else if (match.startsWith("{") && match.endsWith("}")) {
                     int colonIdx = match.indexOf(':');
                     if (colonIdx == -1) {
                         patternBuilder.append(DEFAULT_VARIABLE_PATTERN);
                         this.variableNames.add(m.group(1));
-                    }
-                    else {
+                    } else {
                         String variablePattern = match.substring(colonIdx + 1, match.length() - 1);
                         patternBuilder.append('(');
                         patternBuilder.append(variablePattern);

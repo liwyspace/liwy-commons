@@ -444,14 +444,42 @@ public class RandomUtils {
 		return new String(buffer);
 	}
 
-	/**
-	 * 生成UUID
-	 *
-	 * @param
-	 * @return java.lang.String
-	 */
+    /**
+     * 获取随机UUID
+     *
+     * @return 随机UUID
+     */
     public static String randomUUID() {
         return UUID.randomUUID().toString();
+    }
+
+    /**
+     * 简化的UUID，去掉了横线
+     *
+     * @return 简化的UUID，去掉了横线
+     */
+    public static String simpleUUID() {
+        return UUID.randomUUID().toString(true);
+    }
+
+    /**
+     * 获取随机UUID，使用性能更好的ThreadLocalRandom生成UUID
+     *
+     * @return 随机UUID
+     * @since 4.1.19
+     */
+    public static String fastUUID() {
+        return UUID.fastUUID().toString();
+    }
+
+    /**
+     * 简化的UUID，去掉了横线，使用性能更好的ThreadLocalRandom生成UUID
+     *
+     * @return 简化的UUID，去掉了横线
+     * @since 4.1.19
+     */
+    public static String fastSimpleUUID() {
+        return UUID.fastUUID().toString(true);
     }
     
 }

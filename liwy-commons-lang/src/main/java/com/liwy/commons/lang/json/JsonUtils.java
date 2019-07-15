@@ -1,9 +1,5 @@
 package com.liwy.commons.lang.json;
 
-import com.alibaba.fastjson.JSON;
-
-import java.util.ArrayList;
-
 /**
  * <b>名称：</b> JSON工具类<br/>
  * <b>作者：</b> wenyao02.li <br/>
@@ -23,7 +19,7 @@ public class JsonUtils {
      * 实体类对象转换为JSON字符串
      */
     public static String toJsonStr(Object obj) {
-        JSON.toJSONString(new ArrayList<>());
+//        JSON.toJSONString(new ArrayList<>());
         return null;
     }
 

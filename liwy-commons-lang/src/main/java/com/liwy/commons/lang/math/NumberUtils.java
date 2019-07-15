@@ -13,6 +13,29 @@ import com.liwy.commons.lang.StringUtils;
 public class NumberUtils {
 
     /**
+     * 常用的数值常量
+     */
+    public static final Long LONG_ZERO = Long.valueOf(0L);
+    public static final Long LONG_ONE = Long.valueOf(1L);
+    public static final Long LONG_MINUS_ONE = Long.valueOf(-1L);
+    public static final Integer INTEGER_ZERO = Integer.valueOf(0);
+    public static final Integer INTEGER_ONE = Integer.valueOf(1);
+    public static final Integer INTEGER_TWO = Integer.valueOf(2);
+    public static final Integer INTEGER_MINUS_ONE = Integer.valueOf(-1);
+    public static final Short SHORT_ZERO = Short.valueOf((short) 0);
+    public static final Short SHORT_ONE = Short.valueOf((short) 1);
+    public static final Short SHORT_MINUS_ONE = Short.valueOf((short) -1);
+    public static final Byte BYTE_ZERO = Byte.valueOf((byte) 0);
+    public static final Byte BYTE_ONE = Byte.valueOf((byte) 1);
+    public static final Byte BYTE_MINUS_ONE = Byte.valueOf((byte) -1);
+    public static final Double DOUBLE_ZERO = Double.valueOf(0.0d);
+    public static final Double DOUBLE_ONE = Double.valueOf(1.0d);
+    public static final Double DOUBLE_MINUS_ONE = Double.valueOf(-1.0d);
+    public static final Float FLOAT_ZERO = Float.valueOf(0.0f);
+    public static final Float FLOAT_ONE = Float.valueOf(1.0f);
+    public static final Float FLOAT_MINUS_ONE = Float.valueOf(-1.0f);
+
+    /**
      * <p>检查字符串是否为有效的Java number。</p>
      *
      * <p>有效数字包括十六进制，用<code>0x</code>或<code>0X</code>限定、八进制数字、科学计数法和用类型限定符标记的数字（例如123L）。</p>

@@ -10,27 +10,116 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * <p>常用JavaBean工具类</p>
+ * <p>常用Object工具类</p>
  *
  * <ul>
- *  <li><b>mapToBean</b>
- *      - Map转Bean类型</li>
- *  <li><b>beanToMap</b>
- *      - Bean对象转Map</li>
- *  <li><b>getSimpleProperty</b>
- *      - 通过Get方法获取简单bean的属性值</li>
- *  <li><b>setSimpleProperty</b>
- *      - 通过Set方法设置简单bean的属性值</li>
- *  <li><b>getPropertyDescriptors</b>
- *      - 获取bean的所有有效属性描述</li>
- *  <li><b>getPropertyDescriptor</b>
- *      - 获取bean的指定有效属性描述</li>
+ * <li><b>defaultIfNull</b>             - 如果为null，返回默认值</li>
+ * <li><b>compare</b>                   - 比较对象大小</li>
+ * <li><b>min</b>                       - 获取最小对象</li>
+ * <li><b>max</b>                       - 获取最大对象</li>
+ * <li><b>mapToBean</b>                 - Map转Bean类型</li>
+ * <li><b>beanToMap</b>                 - Bean对象转Map</li>
+ * <li><b>getSimpleProperty</b>         - 通过Get方法获取简单bean的属性值</li>
+ * <li><b>setSimpleProperty</b>         - 通过Set方法设置简单bean的属性值</li>
+ * <li><b>getPropertyDescriptors</b>    - 获取bean的所有有效属性描述</li>
+ * <li><b>getPropertyDescriptor</b>     - 获取bean的指定有效属性描述</li>
  * </ul>
  *
  * @author liwy
- * @version v1.0.1
+ * @version v1.0.2
  */
-public class BeanUtils {
+public class ObjectUtils {
+
+    /**
+     * <p>如果为null，返回默认值</p>
+     *
+     * <pre>
+     * ObjectUtils.defaultIfNull(null, null)      = null
+     * ObjectUtils.defaultIfNull(null, "")        = ""
+     * ObjectUtils.defaultIfNull(null, "zz")      = "zz"
+     * ObjectUtils.defaultIfNull("abc", *)        = "abc"
+     * ObjectUtils.defaultIfNull(Boolean.TRUE, *) = Boolean.TRUE
+     * </pre>
+     *
+     * @param <T>          the type of the object
+     * @param object       the {@code Object} to test, may be {@code null}
+     * @param defaultValue the default value to return, may be {@code null}
+     * @return {@code object} if it is not {@code null}, defaultValue otherwise
+     */
+    public static <T> T defaultIfNull(final T object, final T defaultValue) {
+        return object != null ? object : defaultValue;
+    }
+
+    /**
+     * 比较对象大小
+     *
+     * @param c1
+     * @param c2
+     * @param <T>
+     * @return
+     */
+    public static <T extends Comparable<? super T>> int compare(final T c1, final T c2) {
+        return compare(c1, c2, false);
+    }
+
+    /**
+     * 比较对象大小
+     *
+     * @param c1
+     * @param c2
+     * @param nullGreater null是否为最大
+     * @param <T>
+     * @return
+     */
+    public static <T extends Comparable<? super T>> int compare(final T c1, final T c2, final boolean nullGreater) {
+        if (c1 == c2) {
+            return 0;
+        } else if (c1 == null) {
+            return nullGreater ? 1 : -1;
+        } else if (c2 == null) {
+            return nullGreater ? -1 : 1;
+        }
+        return c1.compareTo(c2);
+    }
+
+    /**
+     * 获取最小的对象
+     *
+     * @param values
+     * @param <T>
+     * @return
+     */
+    public static <T extends Comparable<? super T>> T min(final T... values) {
+        T result = null;
+        if (values != null) {
+            for (final T value : values) {
+                if (compare(value, result, true) < 0) {
+                    result = value;
+                }
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获取最大的对象
+     *
+     * @param values
+     * @param <T>
+     * @return
+     */
+    public static <T extends Comparable<? super T>> T max(final T... values) {
+        T result = null;
+        if (values != null) {
+            for (final T value : values) {
+                if (compare(value, result, false) > 0) {
+                    result = value;
+                }
+            }
+        }
+        return result;
+    }
+
     /**
      * Map转Bean类型
      *
@@ -43,7 +132,7 @@ public class BeanUtils {
         if ((bean == null) || (properties == null)) {
             return;
         }
-        for(final Map.Entry<String, ? extends Object> entry : properties.entrySet()) {
+        for (final Map.Entry<String, ? extends Object> entry : properties.entrySet()) {
             final String name = entry.getKey();
             if (name == null) {
                 continue;
@@ -58,7 +147,7 @@ public class BeanUtils {
      * 对象转Map
      *
      * @param bean
-     * @return java.util.Map<java.lang.String,java.lang.Object>
+     * @return java.util.Map<java.lang.String, java.lang.Object>
      */
     public static Map<String, Object> beanToMap(Object bean) throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
         if (bean == null) {
@@ -101,7 +190,7 @@ public class BeanUtils {
                 getPropertyDescriptor(bean, name);
         if (descriptor == null) {
             throw new NoSuchMethodException("Unknown property '" +
-                    name + "' on class '" + bean.getClass() + "'" );
+                    name + "' on class '" + bean.getClass() + "'");
         }
         final Method readMethod = descriptor.getReadMethod();
         if (readMethod == null) {
@@ -141,13 +230,13 @@ public class BeanUtils {
                 final Object[] values = new Object[1];
                 values[0] = value;
                 writeMethod.invoke(bean, values);
-            } else if(!ignore) {
+            } else if (!ignore) {
                 throw new NoSuchMethodException("Property '" + name +
                         "' has no setter method in class '" + bean.getClass() + "'");
             }
-        } else if(!ignore) {
+        } else if (!ignore) {
             throw new NoSuchMethodException("Unknown property '" +
-                    name + "' on class '" + bean.getClass() + "'" );
+                    name + "' on class '" + bean.getClass() + "'");
         }
     }
 
@@ -187,7 +276,6 @@ public class BeanUtils {
         }
         return null;
     }
-
 
 }
 

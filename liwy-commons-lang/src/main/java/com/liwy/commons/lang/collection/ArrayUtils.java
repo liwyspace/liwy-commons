@@ -1,38 +1,38 @@
 package com.liwy.commons.lang.collection;
 
 import com.liwy.commons.lang.ClassUtils;
+import com.liwy.commons.lang.ObjectUtils;
 
 import java.lang.reflect.Array;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
  * <p>关于数组的工具类</p>
  *
  * <ul>
- *  <li><b>getLength</b>
- *      - 获取数组的长度</li>
- *  <li><b>toMap</b>
- *      - 将给定的数组转换为{@link Map}</li>
- *  <li><b>toArray</b>
- *      - 创建类型安全的通用数组</li>
- *  <li><b>clone</b>
- *      - 浅克隆数组返回一个类型化的结果和处理</li>
- *  <li><b>subarray</b>
- *      - 截取数组</li>
- *  <li><b>reverse</b>
- *      - 反向指定的数组</li>
- *  <li><b>swap</b>
- *      - 交换指定元素</li>
- *  <li><b>indexOf</b>
- *      - 获取数组元素所在位置</li>
- *  <li><b>contains</b>
- *      - 是否包含指定元素</li>
- *  <li><b>isEmpty</b>
- *      - 校验数组是否为空</li>
- *  <li><b>nullToEmpty</b>
- *      - 将null转换为空数组</li>
+ * <li><b>getLength</b>
+ * - 获取数组的长度</li>
+ * <li><b>toMap</b>
+ * - 将给定的数组转换为{@link Map}</li>
+ * <li><b>toArray</b>
+ * - 创建类型安全的通用数组</li>
+ * <li><b>clone</b>
+ * - 浅克隆数组返回一个类型化的结果和处理</li>
+ * <li><b>subarray</b>
+ * - 截取数组</li>
+ * <li><b>reverse</b>
+ * - 反向指定的数组</li>
+ * <li><b>swap</b>
+ * - 交换指定元素</li>
+ * <li><b>indexOf</b>
+ * - 获取数组元素所在位置</li>
+ * <li><b>contains</b>
+ * - 是否包含指定元素</li>
+ * <li><b>isEmpty</b>
+ * - 校验数组是否为空</li>
+ * <li><b>nullToEmpty</b>
+ * - 将null转换为空数组</li>
  * </ul>
  *
  * @author liwy
@@ -109,7 +109,7 @@ public class ArrayUtils {
         for (int i = 0; i < array.length; i++) {
             final Object object = array[i];
             if (object instanceof Map.Entry<?, ?>) {
-                final Entry<?,?> entry = (Entry<?,?>) object;
+                final Entry<?, ?> entry = (Entry<?, ?>) object;
                 map.put(entry.getKey(), entry.getValue());
             } else if (object instanceof Object[]) {
                 final Object[] entry = (Object[]) object;
@@ -158,12 +158,314 @@ public class ArrayUtils {
      * <code>new Number[] {Integer.valueOf(42), Double.valueOf(Math.PI)}</code>.
      * 相比
      *
-     * @param  <T>   the array's element type
-     * @param  items  the varargs array items, null allowed
+     * @param <T>   the array's element type
+     * @param items the varargs array items, null allowed
      * @return the array, not null unless a null array is passed in
      */
     public static <T> T[] toArray(final T... items) {
         return items;
+    }
+
+    /**
+     * 数组转为ArrayList
+     *
+     * @param <T>    集合元素类型
+     * @param values 数组
+     * @return ArrayList对象
+     * @since 4.0.11
+     */
+    public static <T> List<T> toList(T... values) {
+        return Arrays.asList(values);
+    }
+
+    /**
+     * long数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(long[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * int数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(int[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * short数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(short[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * char数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(char[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * byte数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(byte[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * boolean数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(boolean[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * float数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(float[] a) {
+        if (a == null)
+            return "null";
+
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * double数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(double[] a) {
+        if (a == null)
+            return "null";
+        int iMax = a.length - 1;
+        if (iMax == -1)
+            return "[]";
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(a[i]);
+            if (i == iMax)
+                return b.append(']').toString();
+            b.append(", ");
+        }
+    }
+
+    /**
+     * Object数组转字符串
+     *
+     * @param a
+     * @return
+     */
+    public static String toString(Object[] a) {
+        if (a == null) {
+            return "null";
+        }
+
+        int iMax = a.length - 1;
+        if (iMax == -1) {
+            return "[]";
+        }
+
+        StringBuilder b = new StringBuilder();
+        b.append('[');
+        for (int i = 0; ; i++) {
+            b.append(String.valueOf(a[i]));
+            if (i == iMax) {
+                return b.append(']').toString();
+            }
+            b.append(", ");
+        }
+    }
+
+    /**
+     * Object数组转字符串-深度转换
+     *
+     * @param a
+     * @return
+     */
+    public static String deepToString(Object[] a) {
+        if (a == null) {
+            return "null";
+        }
+
+        int bufLen = 20 * a.length;
+        if (a.length != 0 && bufLen <= 0) {
+            bufLen = Integer.MAX_VALUE;
+        }
+        StringBuilder buf = new StringBuilder(bufLen);
+        deepToString(a, buf, new HashSet<Object[]>());
+        return buf.toString();
+    }
+
+    private static void deepToString(Object[] a, StringBuilder buf, Set<Object[]> dejaVu) {
+        if (a == null) {
+            buf.append("null");
+            return;
+        }
+        int iMax = a.length - 1;
+        if (iMax == -1) {
+            buf.append("[]");
+            return;
+        }
+
+        dejaVu.add(a);
+        buf.append('[');
+        for (int i = 0; ; i++) {
+
+            Object element = a[i];
+            if (element == null) {
+                buf.append("null");
+            } else {
+                Class<?> eClass = element.getClass();
+
+                if (eClass.isArray()) {
+                    if (eClass == byte[].class) {
+                        buf.append(toString((byte[]) element));
+                    } else if (eClass == short[].class) {
+                        buf.append(toString((short[]) element));
+                    } else if (eClass == int[].class) {
+                        buf.append(toString((int[]) element));
+                    } else if (eClass == long[].class) {
+                        buf.append(toString((long[]) element));
+                    } else if (eClass == char[].class) {
+                        buf.append(toString((char[]) element));
+                    } else if (eClass == float[].class) {
+                        buf.append(toString((float[]) element));
+                    } else if (eClass == double[].class) {
+                        buf.append(toString((double[]) element));
+                    } else if (eClass == boolean[].class) {
+                        buf.append(toString((boolean[]) element));
+                    } else { // element is an array of object references
+                        if (dejaVu.contains(element)) {
+                            buf.append("[...]");
+                        } else {
+                            deepToString((Object[]) element, buf, dejaVu);
+                        }
+                    }
+                } else {  // element is non-null and not an array
+                    buf.append(element.toString());
+                }
+            }
+            if (i == iMax) {
+                break;
+            }
+            buf.append(", ");
+        }
+        buf.append(']');
+        dejaVu.remove(a);
     }
 
     /**
@@ -174,8 +476,8 @@ public class ArrayUtils {
      *
      * <p>返回 {@code null} ，如果输入的数组为 {@code null}
      *
-     * @param <T> the component type of the array
-     * @param array  the array to shallow clone, may be {@code null}
+     * @param <T>   the component type of the array
+     * @param array the array to shallow clone, may be {@code null}
      * @return the cloned array, {@code null} if {@code null} input
      */
     public static <T> T[] clone(final T[] array) {
@@ -196,8 +498,8 @@ public class ArrayUtils {
      * Date[] someDates = (Date[])ArrayUtils.subarray(allDates, 2, 5);
      * </pre>
      *
-     * @param <T> 数组的组成类型
-     * @param array  待处理的数组
+     * @param <T>                 数组的组成类型
+     * @param array               待处理的数组
      * @param startIndexInclusive
      * @param endIndexExclusive
      * @return 包含起始索引和结束索引之间的元素的新数组。
@@ -228,7 +530,7 @@ public class ArrayUtils {
      * <p>多维数组没有特殊处理
      * <p>此方法对{@code null}输入数组不起作用。
      *
-     * @param array  the array to reverse, may be {@code null}
+     * @param array the array to reverse, may be {@code null}
      */
     public static void reverse(final Object[] array) {
         if (array == null) {
@@ -236,6 +538,7 @@ public class ArrayUtils {
         }
         reverse(array, 0, array.length);
     }
+
     /**
      * <p>
      * 在给定范围内颠倒给定数组的顺序。
@@ -265,17 +568,17 @@ public class ArrayUtils {
 
     /**
      * 交换指定元素
-     *
+     * <p>
      * Examples:
      * <ul>
-     *     <li>ArrayUtils.swap(["1", "2", "3"], 0, 2) -&gt; ["3", "2", "1"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3"], 0, 0) -&gt; ["1", "2", "3"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3"], 1, 0) -&gt; ["2", "1", "3"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -&gt; ["1", "2", "3"]</li>
-     *     <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -&gt; ["2", "1", "3"]</li>
+     * <li>ArrayUtils.swap(["1", "2", "3"], 0, 2) -&gt; ["3", "2", "1"]</li>
+     * <li>ArrayUtils.swap(["1", "2", "3"], 0, 0) -&gt; ["1", "2", "3"]</li>
+     * <li>ArrayUtils.swap(["1", "2", "3"], 1, 0) -&gt; ["2", "1", "3"]</li>
+     * <li>ArrayUtils.swap(["1", "2", "3"], 0, 5) -&gt; ["1", "2", "3"]</li>
+     * <li>ArrayUtils.swap(["1", "2", "3"], -1, 1) -&gt; ["2", "1", "3"]</li>
      * </ul>
      *
-     * @param array the array to swap, may be {@code null}
+     * @param array   the array to swap, may be {@code null}
      * @param offset1 the index of the first element to swap
      * @param offset2 the index of the second element to swap
      * @since 3.5
@@ -300,10 +603,10 @@ public class ArrayUtils {
      *
      * <p>该方法返回 {@code -1} for a {@code null} input array.
      *
-     * @param array  the array to search through for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
+     * @param array        the array to search through for the object, may be {@code null}
+     * @param objectToFind the object to find, may be {@code null}
      * @return the index of the object within the array,
-     *  ({@code -1}) if not found or {@code null} array input
+     * ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final Object[] array, final Object objectToFind) {
         return indexOf(array, objectToFind, 0);
@@ -312,11 +615,11 @@ public class ArrayUtils {
     /**
      * <p>获取指定对象在指定数组该数组从指定索引开始中的索引
      *
-     * @param array  the array to search through for the object, may be {@code null}
-     * @param objectToFind  the object to find, may be {@code null}
-     * @param startIndex  the index to start searching at
+     * @param array        the array to search through for the object, may be {@code null}
+     * @param objectToFind the object to find, may be {@code null}
+     * @param startIndex   the index to start searching at
      * @return the index of the object within the array starting at the index,
-     *  ({@code -1}) if not found or {@code null} array input
+     * ({@code -1}) if not found or {@code null} array input
      */
     public static int indexOf(final Object[] array, final Object objectToFind, int startIndex) {
         if (array == null) {
@@ -340,13 +643,14 @@ public class ArrayUtils {
         }
         return -1;
     }
+
     /**
      * <p>检查对象是否在给定数组中
      *
      * <p>The method returns {@code false} if a {@code null} array is passed in.
      *
-     * @param array  the array to search through
-     * @param objectToFind  the object to find
+     * @param array        the array to search through
+     * @param objectToFind the object to find
      * @return {@code true} if the array contains the object
      */
     public static boolean contains(final Object[] array, final Object objectToFind) {
@@ -362,29 +666,73 @@ public class ArrayUtils {
     public static boolean isEmpty(final Object[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final long[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final int[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final short[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final char[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final byte[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final double[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final float[] array) {
         return getLength(array) == 0;
     }
+
     public static boolean isEmpty(final boolean[] array) {
         return getLength(array) == 0;
+    }
+
+    public static <T> boolean isNotEmpty(final T[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final long[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final int[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final short[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final char[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final byte[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final double[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final float[] array) {
+        return !isEmpty(array);
+    }
+
+    public static boolean isNotEmpty(final boolean[] array) {
+        return !isEmpty(array);
     }
 
     /**
@@ -403,114 +751,133 @@ public class ArrayUtils {
         }
         return array;
     }
+
     public static Object[] nullToEmpty(final Object[] array) {
         if (isEmpty(array)) {
             return EMPTY_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Class<?>[] nullToEmpty(final Class<?>[] array) {
         if (isEmpty(array)) {
             return EMPTY_CLASS_ARRAY;
         }
         return array;
     }
+
     public static String[] nullToEmpty(final String[] array) {
         if (isEmpty(array)) {
             return EMPTY_STRING_ARRAY;
         }
         return array;
     }
+
     public static long[] nullToEmpty(final long[] array) {
         if (isEmpty(array)) {
             return EMPTY_LONG_ARRAY;
         }
         return array;
     }
+
     public static int[] nullToEmpty(final int[] array) {
         if (isEmpty(array)) {
             return EMPTY_INT_ARRAY;
         }
         return array;
     }
+
     public static short[] nullToEmpty(final short[] array) {
         if (isEmpty(array)) {
             return EMPTY_SHORT_ARRAY;
         }
         return array;
     }
+
     public static char[] nullToEmpty(final char[] array) {
         if (isEmpty(array)) {
             return EMPTY_CHAR_ARRAY;
         }
         return array;
     }
+
     public static byte[] nullToEmpty(final byte[] array) {
         if (isEmpty(array)) {
             return EMPTY_BYTE_ARRAY;
         }
         return array;
     }
+
     public static double[] nullToEmpty(final double[] array) {
         if (isEmpty(array)) {
             return EMPTY_DOUBLE_ARRAY;
         }
         return array;
     }
+
     public static float[] nullToEmpty(final float[] array) {
         if (isEmpty(array)) {
             return EMPTY_FLOAT_ARRAY;
         }
         return array;
     }
+
     public static boolean[] nullToEmpty(final boolean[] array) {
         if (isEmpty(array)) {
             return EMPTY_BOOLEAN_ARRAY;
         }
         return array;
     }
+
     public static Long[] nullToEmpty(final Long[] array) {
         if (isEmpty(array)) {
             return EMPTY_LONG_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Integer[] nullToEmpty(final Integer[] array) {
         if (isEmpty(array)) {
             return EMPTY_INTEGER_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Short[] nullToEmpty(final Short[] array) {
         if (isEmpty(array)) {
             return EMPTY_SHORT_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Character[] nullToEmpty(final Character[] array) {
         if (isEmpty(array)) {
             return EMPTY_CHARACTER_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Byte[] nullToEmpty(final Byte[] array) {
         if (isEmpty(array)) {
             return EMPTY_BYTE_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Double[] nullToEmpty(final Double[] array) {
         if (isEmpty(array)) {
             return EMPTY_DOUBLE_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Float[] nullToEmpty(final Float[] array) {
         if (isEmpty(array)) {
             return EMPTY_FLOAT_OBJECT_ARRAY;
         }
         return array;
     }
+
     public static Boolean[] nullToEmpty(final Boolean[] array) {
         if (isEmpty(array)) {
             return EMPTY_BOOLEAN_OBJECT_ARRAY;
@@ -521,7 +888,7 @@ public class ArrayUtils {
     /**
      * <p>将包装类数组转换为基本数据类型数组
      *
-     * @param array  a {@code Character} array, may be {@code null}
+     * @param array a {@code Character} array, may be {@code null}
      * @return a {@code char} array, {@code null} if null array input
      */
     public static Object toPrimitive(final Object array) {
@@ -530,23 +897,24 @@ public class ArrayUtils {
         }
         Class<?> ct = array.getClass().getComponentType();
         Class<?> pt = ClassUtils.wrapperToPrimitive(ct);
-        if(Integer.TYPE.equals(pt)) {
+        if (Integer.TYPE.equals(pt)) {
             return toPrimitive((Integer[]) array);
         }
-        if(Long.TYPE.equals(pt)) {
+        if (Long.TYPE.equals(pt)) {
             return toPrimitive((Long[]) array);
         }
-        if(Short.TYPE.equals(pt)) {
+        if (Short.TYPE.equals(pt)) {
             return toPrimitive((Short[]) array);
         }
-        if(Double.TYPE.equals(pt)) {
+        if (Double.TYPE.equals(pt)) {
             return toPrimitive((Double[]) array);
         }
-        if(Float.TYPE.equals(pt)) {
+        if (Float.TYPE.equals(pt)) {
             return toPrimitive((Float[]) array);
         }
         return array;
     }
+
     public static char[] toPrimitive(final Character[] array) {
         if (array == null) {
             return null;
@@ -559,6 +927,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static char[] toPrimitive(final Character[] array, final char valueForNull) {
         if (array == null) {
             return null;
@@ -585,6 +954,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static long[] toPrimitive(final Long[] array, final long valueForNull) {
         if (array == null) {
             return null;
@@ -598,6 +968,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static int[] toPrimitive(final Integer[] array) {
         if (array == null) {
             return null;
@@ -610,6 +981,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static int[] toPrimitive(final Integer[] array, final int valueForNull) {
         if (array == null) {
             return null;
@@ -623,6 +995,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static short[] toPrimitive(final Short[] array) {
         if (array == null) {
             return null;
@@ -635,6 +1008,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static short[] toPrimitive(final Short[] array, final short valueForNull) {
         if (array == null) {
             return null;
@@ -648,6 +1022,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static byte[] toPrimitive(final Byte[] array) {
         if (array == null) {
             return null;
@@ -660,6 +1035,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static byte[] toPrimitive(final Byte[] array, final byte valueForNull) {
         if (array == null) {
             return null;
@@ -673,6 +1049,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static double[] toPrimitive(final Double[] array) {
         if (array == null) {
             return null;
@@ -685,6 +1062,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static double[] toPrimitive(final Double[] array, final double valueForNull) {
         if (array == null) {
             return null;
@@ -698,6 +1076,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static float[] toPrimitive(final Float[] array) {
         if (array == null) {
             return null;
@@ -710,6 +1089,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static float[] toPrimitive(final Float[] array, final float valueForNull) {
         if (array == null) {
             return null;
@@ -723,6 +1103,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static boolean[] toPrimitive(final Boolean[] array) {
         if (array == null) {
             return null;
@@ -735,6 +1116,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static boolean[] toPrimitive(final Boolean[] array, final boolean valueForNull) {
         if (array == null) {
             return null;
@@ -767,6 +1149,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Long[] toObject(final long[] array) {
         if (array == null) {
             return null;
@@ -779,6 +1162,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Integer[] toObject(final int[] array) {
         if (array == null) {
             return null;
@@ -791,6 +1175,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Short[] toObject(final short[] array) {
         if (array == null) {
             return null;
@@ -803,6 +1188,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Byte[] toObject(final byte[] array) {
         if (array == null) {
             return null;
@@ -815,6 +1201,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Double[] toObject(final double[] array) {
         if (array == null) {
             return null;
@@ -827,6 +1214,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Float[] toObject(final float[] array) {
         if (array == null) {
             return null;
@@ -839,6 +1227,7 @@ public class ArrayUtils {
         }
         return result;
     }
+
     public static Boolean[] toObject(final boolean[] array) {
         if (array == null) {
             return null;
@@ -851,8 +1240,8 @@ public class ArrayUtils {
         }
         return result;
     }
-    
-	// add
+
+    // add
     private static Object add(final Object array, final int index, final Object element, final Class<?> clss) {
         if (array == null) {
             if (index != 0) {
@@ -874,19 +1263,20 @@ public class ArrayUtils {
         }
         return result;
     }
-    
-	// remove
+
+    // remove
     public static <T> T[] remove(final T[] array, final int index) {
         return (T[]) remove((Object) array, index);
     }
+
     private static Object remove(final Object array, final int index) {
         int length = 0;
-        if(array==null) {
-        	length=0;
+        if (array == null) {
+            length = 0;
         } else {
-        	length = Array.getLength(array);
+            length = Array.getLength(array);
         }
-        
+
         if (index < 0 || index >= length) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Length: " + length);
         }
@@ -899,5 +1289,64 @@ public class ArrayUtils {
 
         return result;
     }
-    
+
+    /**
+     * 生成一个新的重新设置大小的数组<br>
+     * 新数组的类型为原数组的类型，调整大小后拷贝原数组到新数组下。扩大则占位前N个位置，缩小则截断
+     *
+     * @param <T>     数组元素类型
+     * @param buffer  原数组
+     * @param newSize 新的数组大小
+     * @return 调整后的新数组
+     */
+    public static <T> T[] resize(T[] buffer, int newSize) {
+        T[] newArray = (T[]) Array.newInstance(buffer.getClass().getComponentType(), newSize);
+        if (isNotEmpty(buffer)) {
+            System.arraycopy(buffer, 0, newArray, 0, Math.min(buffer.length, newSize));
+        }
+        return newArray;
+    }
+
+    /**
+     * 取最小值
+     *
+     * @param <T>         元素类型
+     * @param numberArray 数字数组
+     * @return 最小值
+     * @since 3.0.9
+     */
+    public static <T extends Comparable<? super T>> T min(T[] numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        T min = numberArray[0];
+        for (int i = 0; i < numberArray.length; i++) {
+            if (ObjectUtils.compare(min, numberArray[i]) > 0) {
+                min = numberArray[i];
+            }
+        }
+        return min;
+    }
+
+    /**
+     * 取最大值
+     *
+     * @param <T>         元素类型
+     * @param numberArray 数字数组
+     * @return 最大值
+     * @since 3.0.9
+     */
+    public static <T extends Comparable<? super T>> T max(T[] numberArray) {
+        if (isEmpty(numberArray)) {
+            throw new IllegalArgumentException("Number array must not empty !");
+        }
+        T max = numberArray[0];
+        for (int i = 0; i < numberArray.length; i++) {
+            if (ObjectUtils.compare(max, numberArray[i]) < 0) {
+                max = numberArray[i];
+            }
+        }
+        return max;
+    }
+
 }

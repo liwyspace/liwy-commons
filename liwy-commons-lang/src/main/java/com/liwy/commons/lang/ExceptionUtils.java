@@ -9,20 +9,15 @@ import java.util.List;
  * <p>常用异常工具类</p>
  *
  * <ul>
- *  <li><b>getThrowableList</b>
- *      - 获取异常链中的异常</li>
- *  <li><b>getMessage</b>
- *      - 获取异常的消息字符串</li>
- *  <li><b>getRootCause</b>
- *      - 获取根本原因异常</li>
- *  <li><b>getRootCauseMessage</b>
- *      - 获取根本原因异常的消息字符串</li>
- *  <li><b>getStackTrace</b>
- *      - 获取异常的堆栈追踪字符串</li>
+ * <li><b>getThrowableList</b>     - 获取异常链中的异常</li>
+ * <li><b>getMessage</b>           - 获取异常的消息字符串</li>
+ * <li><b>getRootCause</b>         - 获取根本原因异常</li>
+ * <li><b>getRootCauseMessage</b>  - 获取根本原因异常的消息字符串</li>
+ * <li><b>getStackTrace</b>        - 获取异常的堆栈追踪字符串</li>
  * </ul>
  *
  * @author liwy
- * @version v1.0.1
+ * @version v1.0.2
  */
 public class ExceptionUtils {
     /**

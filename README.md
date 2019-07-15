@@ -34,12 +34,13 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 
 ### liwy-commons-lang
 
-* `AntPathMatcher v1.0.1` - Ant风格Path匹配工具
-* `BeanUtils v1.0.1` - Bean工具
-* `ClassUtils v1.0.1` - Class工具
-* `EnumUtils v1.0.1` - 枚举工具
-* `ExceptionUtils v1.0.1` - 异常工具
-* `PropertiesUtils v1.0.1` - Properties工具
+* `AntPathMatcher v1.0.2` - Ant风格Path匹配工具
+* `ClassLoader v1.0.2` - 类加载工具
+* `ClassUtils v1.0.2` - Class工具
+* `EnumUtils v1.0.2` - 枚举工具
+* `ExceptionUtils v1.0.2` - 异常工具
+* `ObjectUtils v1.0.2` - Object工具
+* `PropertiesUtils v1.0.2` - Properties工具
 * `RandomUtils v1.0.1` - 随机工具
 * `ReflectUtils v1.0.1` - 反射工具
 * `StringUtils v1.0.1` - 字符串工具
@@ -59,7 +60,7 @@ liwy-commons 是作者在开发实践中总结归纳的一组常用的工具。�
 * io IO包
     * `StreamUtils` - IO工具
     * `FileUtils` - 文件工具
-    * `PathUtils` - 路径工具
+    * `PathUtils v1.0.2` - 路径工具
     * `FileNameUtils` - 文件名工具
 * json JSON包
     * `JsonUtils` - JSON工具
