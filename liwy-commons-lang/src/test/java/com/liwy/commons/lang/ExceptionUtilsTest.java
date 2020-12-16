@@ -62,7 +62,7 @@ public class ExceptionUtilsTest {
         IOException ioException = new IOException();
         IllegalArgumentException argumentException = new IllegalArgumentException(ioException);
         assertThat(ExceptionUtils.getStackTrace(argumentException),
-                allOf(startsWith("java.lang.IllegalArgumentException: java.io.IOException"), endsWith("... 22 more\n")));
+                allOf(startsWith("java.lang.IllegalArgumentException: java.io.IOException"), endsWith(" more\n")));
     }
 
 }

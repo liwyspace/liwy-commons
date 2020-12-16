@@ -1,11 +1,9 @@
 package com.liwy.commons.dbutils;
 
 import com.liwy.commons.dbutils.handlers.ResultSetHandler;
-import oracle.jdbc.OracleTypes;
 
 import java.sql.*;
 import java.util.Arrays;
-import java.util.Map;
 
 /**
  * CRUD相关方法
@@ -53,7 +51,7 @@ public class QueryRunner {
 			}
 		}
 	}
-	
+
 	/**
      * 抛出自定义的异常信息
      *
@@ -89,7 +87,7 @@ public class QueryRunner {
         } else {
             msg.append(Arrays.deepToString(params));
         }
-        
+
         SQLException e = new SQLException(msg.toString(), cause.getSQLState(),
                 cause.getErrorCode());
         e.setNextException(cause);
@@ -183,7 +181,7 @@ public class QueryRunner {
 
 		return rows;
 	}
-	
+
 	/**
      * 批量执行插入、修改、删除语句
      * @param conn The connection to use for the batch call.
@@ -224,7 +222,7 @@ public class QueryRunner {
         }
         return rows;
     }
-    
+
     /**
      * 执行插入语句并返回生成的主键值
      * @param conn The connection to use for the query call.
@@ -267,7 +265,7 @@ public class QueryRunner {
 
         return generatedKeys;
     }
-    
+
     /**
      * 批量执行插入语句并返回生成的主键值
      * @param conn The connection to use for the query call.
@@ -316,10 +314,10 @@ public class QueryRunner {
     }
 
 	// ---------------------------------
-    
+
     /**
      * 调用函数或存储过程--待完善
-     * 
+     *
      * 函数sql：{?= call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]}
      * 存储过程sql：{call &lt;procedure-name&gt;[(&lt;arg1&gt;,&lt;arg2&gt;, ...)]}
      *
@@ -333,55 +331,55 @@ public class QueryRunner {
      * @param params
      * @throws SQLException
      */
-	public static void call(Connection conn, String sql,
-			Object... params) throws SQLException {
-		if (conn == null) {
-			throw new SQLException("Null connection");
-		}
-
-		if (sql == null) {
-			throw new SQLException("Null SQL statement");
-		}
-		
-		CallableStatement stmt = null;
-		try {
-			stmt = conn.prepareCall(sql);
-			
-			//设置传入参数
-			for (int i = 0; i < params.length; i++) {
-			    if (params[i] instanceof Map) {
-			        Map parm = (Map) params[i];
-			        if(parm.get("sqlType")!=null) {
-                        //设置返回参数
-                        stmt.registerOutParameter(i+1, (Integer) parm.get("sqlType"));
-                        if(parm.get("value")!=null) {
-                            stmt.setObject(i+1, parm.get("value"));
-                        }
-                    }
-                } else {
-                    stmt.setObject(i + 1, params[i]);
-                }
-			}
-			stmt.execute();
-			//获取返回参数
-            for (int i = 0; i < params.length; i++) {
-                if (params[i] instanceof Map) {
-                    Map parm = (Map) params[i];
-                    if(parm.get("sqlType")!=null) {
-                        Object result = stmt.getObject(i+1);
-                        if((Integer)parm.get("sqlType")== OracleTypes.CURSOR) {
-                            ResultSetHandler handler = (ResultSetHandler) parm.get("rsHandler");
-                            ResultSet rs = (ResultSet) result;
-                            result = handler.handle(rs);
-                            DbUtils.close(rs);
-                        }
-                        parm.put("value",result);
-                    }
-                }
-            }
-
-		} finally {
-            DbUtils.close(stmt);
-		}
-	}
+//	public static void call(Connection conn, String sql,
+//			Object... params) throws SQLException {
+//		if (conn == null) {
+//			throw new SQLException("Null connection");
+//		}
+//
+//		if (sql == null) {
+//			throw new SQLException("Null SQL statement");
+//		}
+//
+//		CallableStatement stmt = null;
+//		try {
+//			stmt = conn.prepareCall(sql);
+//
+//			//设置传入参数
+//			for (int i = 0; i < params.length; i++) {
+//			    if (params[i] instanceof Map) {
+//			        Map parm = (Map) params[i];
+//			        if(parm.get("sqlType")!=null) {
+//                        //设置返回参数
+//                        stmt.registerOutParameter(i+1, (Integer) parm.get("sqlType"));
+//                        if(parm.get("value")!=null) {
+//                            stmt.setObject(i+1, parm.get("value"));
+//                        }
+//                    }
+//                } else {
+//                    stmt.setObject(i + 1, params[i]);
+//                }
+//			}
+//			stmt.execute();
+//			//获取返回参数
+//            for (int i = 0; i < params.length; i++) {
+//                if (params[i] instanceof Map) {
+//                    Map parm = (Map) params[i];
+//                    if(parm.get("sqlType")!=null) {
+//                        Object result = stmt.getObject(i+1);
+//                        if((Integer)parm.get("sqlType")== OracleTypes.CURSOR) {
+//                            ResultSetHandler handler = (ResultSetHandler) parm.get("rsHandler");
+//                            ResultSet rs = (ResultSet) result;
+//                            result = handler.handle(rs);
+//                            DbUtils.close(rs);
+//                        }
+//                        parm.put("value",result);
+//                    }
+//                }
+//            }
+//
+//		} finally {
+//            DbUtils.close(stmt);
+//		}
+//	}
 }

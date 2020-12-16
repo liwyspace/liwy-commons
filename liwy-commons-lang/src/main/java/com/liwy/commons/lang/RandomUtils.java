@@ -459,7 +459,7 @@ public class RandomUtils {
      * @return 简化的UUID，去掉了横线
      */
     public static String simpleUUID() {
-        return UUID.randomUUID().toString(true);
+        return UUID.randomUUID().toString();
     }
 
     /**
@@ -468,9 +468,9 @@ public class RandomUtils {
      * @return 随机UUID
      * @since 4.1.19
      */
-    public static String fastUUID() {
-        return UUID.fastUUID().toString();
-    }
+//    public static String fastUUID() {
+//        return UUID.fastUUID().toString();
+//    }
 
     /**
      * 简化的UUID，去掉了横线，使用性能更好的ThreadLocalRandom生成UUID
@@ -478,8 +478,8 @@ public class RandomUtils {
      * @return 简化的UUID，去掉了横线
      * @since 4.1.19
      */
-    public static String fastSimpleUUID() {
-        return UUID.fastUUID().toString(true);
-    }
+//    public static String fastSimpleUUID() {
+//        return UUID.fastUUID().toString(true);
+//    }
     
 }

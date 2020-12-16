@@ -600,7 +600,7 @@ public class StringUtils {
      * <p>清除左右空白，如果为null则返回null</p>
      *
      * <pre>
-     * StringUtils.trim(null)       = ""
+     * StringUtils.trim(null)       = null
      * StringUtils.trim("")         = ""
      * StringUtils.trim(" ")       	= ""
      * StringUtils.trim("liwy")     = "liwy"
